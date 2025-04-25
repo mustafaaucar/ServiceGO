@@ -34,7 +34,7 @@ namespace BLL.Services
             if (manager == null)
                 throw new Exception("Kullanıcı bulunamadı!");
 
-            if (!VerifyPassword(model.Password, manager.Password)) // ManagerTel geçici olarak Password alanı gibi kullanılıyor
+            if (!VerifyPassword(model.Password, manager.Password)) 
                 throw new Exception("Şifre hatalı!");
 
             return GenerateJwtToken(manager);
@@ -42,6 +42,15 @@ namespace BLL.Services
 
         public async Task<string> RegisterAsync(ManagersDTO model)
         {
+            var managers = _context.Managers.Where(x => x.CompanyID == model.CompanyID);
+            if (managers.Count() == 0)
+            {
+                model.AddPermission = true;
+                model.ListPermission = true;
+                model.UpdatePermission = true;
+                model.DeletePermission = true;
+            }
+
             if (await _context.Managers.AnyAsync(m => m.ManagerEmail == model.ManagerEmail))
                 throw new Exception("Bu email adresiyle bir kullanıcı zaten var.");
 
@@ -57,7 +66,11 @@ namespace BLL.Services
                 CompanyID = model.CompanyID,
                 AddPermission = model.AddPermission,
                 UpdatePermission = model.UpdatePermission,
-                DeletePermission = model.DeletePermission
+                DeletePermission = model.DeletePermission,
+                ListPermission = model.ListPermission,
+                IsActive = true,
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now 
             };
 
             _context.Managers.Add(manager);
@@ -75,7 +88,6 @@ namespace BLL.Services
                 new Claim(ClaimTypes.Name, manager.ManagerName),
                 new Claim(ClaimTypes.Email, manager.ManagerEmail),
                 new Claim(ClaimTypes.Role, "Manager"),
-                // Eğer permission'ları da token içine koymak istersen:
                 new Claim("AddPermission", manager.AddPermission.ToString()),
                 new Claim("UpdatePermission", manager.UpdatePermission.ToString()),
                 new Claim("DeletePermission", manager.DeletePermission.ToString())

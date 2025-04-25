@@ -24,6 +24,7 @@ namespace BLL.Services
         }
         public async Task<CompaniesDTO> AddCompany(CompaniesDTO model)
         {
+            model.IsActive = true;
             var entry = await _companiesRepository.AddAsync(_mapper.Map<Companies>(model));
             await _companiesRepository.SaveAsync();
             return _mapper.Map<CompaniesDTO>(entry);
