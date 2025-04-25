@@ -2,6 +2,7 @@
 using BLL.DTO;
 using BLL.Interfaces;
 using DAL.IRepositories;
+using DAL.IRepository;
 using Entity.Models;
 using System;
 using System.Collections.Generic;
@@ -21,11 +22,14 @@ namespace BLL.Services
             _companiesRepository = companiesRepository;
             _mapper = mapper;
         }
-        public async Task AddCompany(CompaniesDTO model)
+        public async Task<CompaniesDTO> AddCompany(CompaniesDTO model)
         {
-            await _companiesRepository.AddAsync(_mapper.Map<Companies>(model));
+            var entry = await _companiesRepository.AddAsync(_mapper.Map<Companies>(model));
             await _companiesRepository.SaveAsync();
+            return _mapper.Map<CompaniesDTO>(entry);
         }
+
+        
     }
    
 }

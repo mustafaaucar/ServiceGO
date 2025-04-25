@@ -9,6 +9,6 @@ namespace BLL.Interfaces
 {
     public interface ICompaniesService
     {
-        Task AddCompany(CompaniesDTO model);
+        Task<CompaniesDTO> AddCompany(CompaniesDTO model);
     }
 }

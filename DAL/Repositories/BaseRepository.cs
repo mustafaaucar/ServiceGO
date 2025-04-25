@@ -24,10 +24,11 @@ namespace DAL.BaseRepository
 
 		public async Task<IEnumerable<T>> GetAllAsync() => await _dbSet.ToListAsync();
 
-		public async Task AddAsync(T entity)
+		public async Task<T> AddAsync(T entity)
 		{
-			await _dbSet.AddAsync(entity);
-		}
+			var entry = await _dbSet.AddAsync(entity);
+            return entry.Entity;
+        }
 
 		public void Update(T entity)
 		{

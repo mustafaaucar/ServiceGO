@@ -1,4 +1,6 @@
-﻿@{
+﻿@using BLL.DTO
+@model CompaniesDTO
+@{
     ViewData["Title"] = "Register";
     Layout = null;
 }
@@ -55,77 +57,90 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form asp-action="RegisterCompany" asp-controller="Home" method="post">
-                                    <div class="form-group">
-                                        <label class="form-label" for="name">Şirketinizin Adı</label>
-                                        <div class="form-control-wrap">
-                                            <input type="text" class="form-control form-control-lg" id="name" name="CompanyName" placeholder="Enter your name">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label" for="name">Soyisim</label>
-                                        <div class="form-control-wrap">
-                                            <input type="text" class="form-control form-control-lg" id="surname" name="CompanyTel" placeholder="Enter your name">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label" for="email">Email</label>
-                                        <div class="form-control-wrap">
-                                            <input type="text" class="form-control form-control-lg" id="email" name="CompanyEmail" placeholder="Enter your email address or username">
-                                        </div>
-                                    </div>
+                                @{
+                                    if (Model != null && Model.Id != 0)
+                                    {
+                                        <form asp-action="Register" asp-controller="Home" method="post">
+                                            <div class="form-group">
+                                                <label class="form-label" for="name">İsim</label>
+                                                <div class="form-control-wrap">
+                                                    <input type="text" class="form-control form-control-lg" id="name" name="ManagerName" placeholder="Enter your name">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label" for="name">Soyisim</label>
+                                                <div class="form-control-wrap">
+                                                    <input type="text" class="form-control form-control-lg" id="surname" name="ManagerSurname" placeholder="Enter your name">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label" for="email">Email</label>
+                                                <div class="form-control-wrap">
+                                                    <input type="text" class="form-control form-control-lg" id="email" name="ManagerEmail" placeholder="Enter your email address or username">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" style="visibility:hidden">
+                                                    <input type="text" name="CompanyID" value="@Model.Id" >
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label" for="email">Telefon Numarası</label>
+                                                <div class="form-control-wrap">
+                                                    <input type="text" class="form-control form-control-lg" id="email" name="ManagerTel" placeholder="Enter your email address or username">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label" for="password">Şifre</label>
+                                                <div class="form-control-wrap">
+                                                    <a tabindex="-1" href="#" class="form-icon form-icon-right passcode-switch lg" data-target="password">
+                                                        <em class="passcode-icon icon-show icon ni ni-eye"></em>
+                                                        <em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
+                                                    </a>
+                                                    <input type="password" class="form-control form-control-lg" id="password" name="Password" placeholder="Enter your passcode">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="custom-control custom-control-xs custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="checkbox">
+                                                    <label class="custom-control-label" for="checkbox">
+                                                        I agree to Dashlite <a tabindex="-1" href="../terms-policy.html">Privacy Policy</a> &amp; <a tabindex="-1" href="../terms-policy.html"> Terms.</a>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button class="btn btn-lg btn-primary btn-block">Register</button>
+                                            </div>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <form asp-action="RegisterCompany" asp-controller="Home" method="post">
+                                            <div class="form-group">
+                                                <label class="form-label" for="name">Şirketinizin Adı</label>
+                                                <div class="form-control-wrap">
+                                                    <input type="text" class="form-control form-control-lg" id="name" name="CompanyName" placeholder="Enter your name">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label" for="name">Soyisim</label>
+                                                <div class="form-control-wrap">
+                                                    <input type="text" class="form-control form-control-lg" id="surname" name="CompanyTel" placeholder="Enter your name">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label" for="email">Email</label>
+                                                <div class="form-control-wrap">
+                                                    <input type="text" class="form-control form-control-lg" id="email" name="CompanyEmail" placeholder="Enter your email address or username">
+                                                </div>
+                                            </div>
 
-                                    <div class="form-group">
-                                        <button class="btn btn-lg btn-primary btn-block">Kaydet</button>
-                                    </div>
-                                </form>
-                                <form asp-action="Register" asp-controller="Home" method="post">
-                                    <div class="form-group">
-                                        <label class="form-label" for="name">İsim</label>
-                                        <div class="form-control-wrap">
-                                            <input type="text" class="form-control form-control-lg" id="name" name="ManagerName" placeholder="Enter your name">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label" for="name">Soyisim</label>
-                                        <div class="form-control-wrap">
-                                            <input type="text" class="form-control form-control-lg" id="surname" name="ManagerSurname" placeholder="Enter your name">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label" for="email">Email</label>
-                                        <div class="form-control-wrap">
-                                            <input type="text" class="form-control form-control-lg" id="email" name="ManagerEmail" placeholder="Enter your email address or username">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label" for="email">Telefon Numarası</label>
-                                        <div class="form-control-wrap">
-                                            <input type="text" class="form-control form-control-lg" id="email" name="ManagerTel" placeholder="Enter your email address or username">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label" for="password">Şifre</label>
-                                        <div class="form-control-wrap">
-                                            <a tabindex="-1" href="#" class="form-icon form-icon-right passcode-switch lg" data-target="password">
-                                                <em class="passcode-icon icon-show icon ni ni-eye"></em>
-                                                <em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
-                                            </a>
-                                            <input type="password" class="form-control form-control-lg" id="password" name="Password" placeholder="Enter your passcode">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="custom-control custom-control-xs custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="checkbox">
-                                            <label class="custom-control-label" for="checkbox">
-                                                I agree to Dashlite <a tabindex="-1" href="../terms-policy.html">Privacy Policy</a> &amp; <a tabindex="-1" href="../terms-policy.html"> Terms.</a>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <button class="btn btn-lg btn-primary btn-block">Register</button>
-                                    </div>
-                                </form>
+                                            <div class="form-group">
+                                                <button class="btn btn-lg btn-primary btn-block">Kaydet</button>
+                                            </div>
+                                        </form>
+                                    }
+                                }
+                                
+                            
                                 <div class="form-note-s2 pt-4">
                                     Already have an account ? <a href="auth-login.html">
                                         <strong>Sign in instead</strong>

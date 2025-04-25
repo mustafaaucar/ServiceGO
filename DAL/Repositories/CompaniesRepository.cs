@@ -20,9 +20,10 @@ namespace DAL.Repositories
             _context = context;
         }
 
-        public async Task AddAsync(Companies entity)
+        public async Task<Companies> AddAsync(Companies entity)
         {
-            await _context.Companies.AddAsync(entity);
+            var entry = await _context.Companies.AddAsync(entity);
+            return entry.Entity;
         }
 
         public void Delete(Companies entity)

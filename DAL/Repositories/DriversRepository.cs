@@ -18,10 +18,11 @@ namespace DAL.Repositories
 		{ 
 			_context = context;
 		}
-		public async Task AddAsync(Drivers entity)
+		public async Task<Drivers> AddAsync(Drivers entity)
 		{
-			await _context.AddAsync(entity);
-		}
+			var entry = await _context.AddAsync(entity);
+			return entry.Entity;
+        }
 
 		public void Delete(Drivers entity)
 		{

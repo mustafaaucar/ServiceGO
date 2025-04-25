@@ -37,9 +37,9 @@ namespace ServiceGO.Controllers
             _authService.LoginAsync(model);
             return Ok();
         }
-        public IActionResult Register()
+        public IActionResult Register(CompaniesDTO? model)
         {
-            return View();
+            return View(model);
         }
         [HttpPost]
         public IActionResult Register(ManagersDTO model)
@@ -48,10 +48,10 @@ namespace ServiceGO.Controllers
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public IActionResult RegisterCompany(CompaniesDTO model)
+        public async Task<IActionResult> RegisterCompany(CompaniesDTO model)
         {
-            _companiesService.AddCompany(model);
-            return View();
+            var entry = await _companiesService.AddCompany(model);
+            return RedirectToAction("Register", entry);
         }
         public IActionResult ForgetPassword()
         {
