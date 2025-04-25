@@ -14,6 +14,7 @@ namespace Entity.Models
         public string Email { get; set; }
         public string Adress { get; set; }
         public string CitizenNumber { get; set; }
+        public string Coordinats { get; set; }
         public int? RouteID { get; set; }
     }
 }

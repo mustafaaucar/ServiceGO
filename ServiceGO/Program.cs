@@ -1,4 +1,5 @@
 using BLL.AutoMapper;
+using BLL.DTO;
 using BLL.Interfaces;
 using BLL.Services;
 using DAL.ApplicationDbContext;
@@ -7,6 +8,8 @@ using DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.Configure<JwtSettingsDTO>(builder.Configuration.GetSection("JwtSettings"));
+
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 
@@ -19,6 +22,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IDriversService, DriversService>();
 builder.Services.AddScoped<IDriversRepository, DriversRepository>();
+
+builder.Services.AddScoped<ICompaniesService, CompaniesService>();
+builder.Services.AddScoped<ICompaniesRepository, CompaniesRepository>();
+
+
+builder.Services.AddScoped<IAuthService, AuthService>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

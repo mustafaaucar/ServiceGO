@@ -15,7 +15,16 @@ namespace BLL.AutoMapper
 		{
 			CreateMap<Drivers, DriversDTO>();
 
-			CreateMap<DriversDTO, Drivers>(); 
-		}
+			CreateMap<DriversDTO, Drivers>();
+
+
+            CreateMap<Managers, ManagersDTO>();
+
+            CreateMap<ManagersDTO, Managers>();
+
+            CreateMap<Companies, CompaniesDTO>();
+            CreateMap<CompaniesDTO, Companies>();
+
+        }
 	}
 }

@@ -1,3 +1,4 @@
+using BLL.DTO;
 using BLL.Interfaces;
 using BLL.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -10,12 +11,15 @@ namespace ServiceGO.Controllers
 	{
 		private readonly ILogger<HomeController> _logger;
         private readonly IDriversService _driversService;
+        private readonly ICompaniesService _companiesService;
+        private readonly IAuthService _authService;
 
-        public HomeController(ILogger<HomeController> logger, IDriversService driversService)
+        public HomeController(ILogger<HomeController> logger, IDriversService driversService, IAuthService authService, ICompaniesService companiesService)
 		{
 			_logger = logger;
             _driversService = driversService;
-
+            _authService = authService;
+            _companiesService = companiesService;
         }
 
         public IActionResult Index()
@@ -23,6 +27,35 @@ namespace ServiceGO.Controllers
             var drivers = _driversService.GetAllDriversAsync().Result;
             return View(drivers);
         }
-
-	}
+        public IActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Login(Login model)
+        {
+            _authService.LoginAsync(model);
+            return Ok();
+        }
+        public IActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Register(ManagersDTO model)
+        {
+            _authService.RegisterAsync(model);
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public IActionResult RegisterCompany(CompaniesDTO model)
+        {
+            _companiesService.AddCompany(model);
+            return View();
+        }
+        public IActionResult ForgetPassword()
+        {
+            return View();
+        }
+    }
 }
