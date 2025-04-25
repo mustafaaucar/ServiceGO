@@ -15,5 +15,7 @@ namespace DAL.ApplicationDbContext
 		public DbSet<Drivers> Drivers { get; set; }
 		public DbSet<Passangers> Passangers { get; set; }
 		public DbSet<Route> Routes { get; set; }
+		public DbSet<Companies> Companies { get; set; }
+		public DbSet<Managers> Managers { get; set; }
 	}
 }

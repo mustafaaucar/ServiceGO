@@ -17,5 +17,6 @@ namespace Entity.Models
         public string Plate { get; set; }
         public int SeatNumber { get; set; }
         public string PricePerKM { get; set; }
+        public int CompanyID { get; set; }
     }
 }
