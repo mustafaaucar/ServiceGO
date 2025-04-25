@@ -4,12 +4,11 @@ using BLL.Services;
 using DAL.ApplicationDbContext;
 using DAL.IRepositories;
 using DAL.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
-builder.Services.AddScoped<IDriversService, DriversService>();
-builder.Services.AddScoped<IDriversRepository, DriversRepository>();
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -18,6 +17,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 
 
+builder.Services.AddScoped<IDriversService, DriversService>();
+builder.Services.AddScoped<IDriversRepository, DriversRepository>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

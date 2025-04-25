@@ -23,7 +23,11 @@ namespace BLL.Services
 			_mapper = mapper;
 		}
 
-		public async Task<IEnumerable<DriversDTO>> GetAllDriversAsync()
+        public DriversService()
+        {
+        }
+
+        public async Task<IEnumerable<DriversDTO>> GetAllDriversAsync()
 		{
 			var drivers = await _driversRepository.GetAllAsync();
 			return _mapper.Map<IEnumerable<DriversDTO>>(drivers);

@@ -10,7 +10,7 @@ namespace DAL.ApplicationDbContext
 {
 	public class AppDbContext : DbContext
 	{
-		public AppDbContext(DbContextOptions<DbContext> options) : base(options) { }
+		public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
 		public DbSet<Drivers> Drivers { get; set; }
 		public DbSet<Passangers> Passangers { get; set; }
