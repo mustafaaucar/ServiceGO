@@ -1,6 +1,7 @@
 using BLL.DTO;
 using BLL.Interfaces;
 using BLL.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceGO.Models;
 using System.Diagnostics;
@@ -22,21 +23,33 @@ namespace ServiceGO.Controllers
             _companiesService = companiesService;
         }
 
+        [Authorize]
         public IActionResult Index()
 		{
             var drivers = _driversService.GetAllDriversAsync().Result;
             return View(drivers);
         }
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult Login(Login model)
+        public async Task<IActionResult> Login(Login model)
         {
-            _authService.LoginAsync(model);
-            return Ok();
+            var token = await _authService.LoginAsync(model);
+
+            Response.Cookies.Append("ServiceGoToken", token, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTimeOffset.UtcNow.AddHours(1)
+            });
+
+            return RedirectToAction("Index");
         }
+        [HttpGet]
         public IActionResult Register(CompaniesDTO? model)
         {
             return View(model);
