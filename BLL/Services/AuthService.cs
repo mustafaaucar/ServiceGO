@@ -1,6 +1,7 @@
 ﻿using BLL.DTO;
 using BLL.Interfaces;
 using DAL.ApplicationDbContext;
+using DAL.IRepositories;
 using Entity.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -19,11 +20,13 @@ namespace BLL.Services
     {
         private readonly AppDbContext _context;
         private readonly JwtSettingsDTO _jwtSettings;
+        private IManagerRepository _managerRepository;
 
-        public AuthService(AppDbContext context, IOptions<JwtSettingsDTO> jwtSettings)
+        public AuthService(AppDbContext context, IOptions<JwtSettingsDTO> jwtSettings , IManagerRepository managerRepository)
         {
             _context = context;
             _jwtSettings = jwtSettings.Value;
+            _managerRepository = managerRepository;
         }
 
         public async Task<string> LoginAsync(Login model)
@@ -73,8 +76,8 @@ namespace BLL.Services
                 ModifiedDate = DateTime.Now 
             };
 
-            _context.Managers.Add(manager);
-            await _context.SaveChangesAsync();
+            await _managerRepository.AddAsync(manager);
+
 
             return GenerateJwtToken(manager);
         }
@@ -85,7 +88,7 @@ namespace BLL.Services
             var key = Encoding.UTF8.GetBytes(_jwtSettings.Key);
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, manager.ManagerName),
+                new Claim(ClaimTypes.Name, manager.ManagerName), 
                 new Claim(ClaimTypes.Email, manager.ManagerEmail),
                 new Claim(ClaimTypes.Role, "Manager"),
                 new Claim("AddPermission", manager.AddPermission.ToString()),

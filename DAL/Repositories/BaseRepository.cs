@@ -26,8 +26,16 @@ namespace DAL.BaseRepository
 
 		public async Task<T> AddAsync(T entity)
 		{
-			var entry = await _dbSet.AddAsync(entity);
-            return entry.Entity;
+			try
+			{
+                var entry = await _dbSet.AddAsync(entity);
+                await _context.SaveChangesAsync();
+                return entry.Entity;
+            }
+			catch (Exception ex)
+			{
+                throw;
+            }
         }
 
 		public void Update(T entity)

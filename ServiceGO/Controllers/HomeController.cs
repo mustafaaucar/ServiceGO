@@ -42,9 +42,9 @@ namespace ServiceGO.Controllers
             return View(model);
         }
         [HttpPost]
-        public IActionResult Register(ManagersDTO model)
+        public async Task<IActionResult>Register(ManagersDTO model)
         {
-            _authService.RegisterAsync(model);
+            await _authService.RegisterAsync(model);
             return RedirectToAction("Index");
         }
         [HttpPost]
