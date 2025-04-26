@@ -89,7 +89,26 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-	name: "default",
-	pattern: "{controller=Home}/{action=Index}/{id?}");
+    name: "ManagerHome",
+    pattern: "manager-anasayfa",
+    defaults: new { controller = "Home", action = "Index" }
+);
+app.MapControllerRoute(
+    name: "Login",
+    pattern: "login",
+    defaults: new { controller = "Home", action = "Login" }
+);
+app.MapControllerRoute(
+    name: "Drivers",
+    pattern: "drivers",
+    defaults: new { controller = "Drivers", action = "Index" }
+);
 
+
+
+
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 app.Run();

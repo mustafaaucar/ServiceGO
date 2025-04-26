@@ -47,7 +47,7 @@ namespace ServiceGO.Controllers
                 Expires = DateTimeOffset.UtcNow.AddHours(1)
             });
 
-            return RedirectToAction("Index");
+            return Redirect("/manager-anasayfa");
         }
         [HttpGet]
         public IActionResult Register(CompaniesDTO? model)
@@ -58,7 +58,7 @@ namespace ServiceGO.Controllers
         public async Task<IActionResult>Register(ManagersDTO model)
         {
             await _authService.RegisterAsync(model);
-            return RedirectToAction("Index");
+            return Redirect("/login");
         }
         [HttpPost]
         public async Task<IActionResult> RegisterCompany(CompaniesDTO model)
