@@ -1,4 +1,5 @@
 ﻿using DAL.ApplicationDbContext;
+using DAL.BaseRepository;
 using DAL.IRepositories;
 using DAL.IRepository;
 using Entity.Models;
@@ -11,44 +12,10 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
-    public class CompaniesRepository : ICompaniesRepository
+    public class CompaniesRepository : BaseRepository<Companies>, ICompaniesRepository
     {
-        private readonly AppDbContext _context;
-
-        public CompaniesRepository(AppDbContext context)
+        public CompaniesRepository(AppDbContext context) : base(context)
         {
-            _context = context;
-        }
-
-        public async Task<Companies> AddAsync(Companies entity)
-        {
-            var entry = await _context.Companies.AddAsync(entity);
-            return entry.Entity;
-        }
-
-        public void Delete(Companies entity)
-        {
-            _context.Companies.Remove(entity);
-        }
-
-        public async Task<Companies> GetByIdAsync(int id)
-        {
-            return await _context.Companies.FindAsync(id);
-        }
-
-        public async Task<IEnumerable<Companies>> GetAllAsync()
-        {
-            return await _context.Companies.ToListAsync();
-        }
-
-        public void Update(Companies entity)
-        {
-            _context.Companies.Update(entity);
-        }
-
-        public async Task SaveAsync()
-        {
-            await _context.SaveChangesAsync();
         }
     }
 
