@@ -1,4 +1,5 @@
-﻿using BLL.Interfaces;
+﻿using BLL.DTO;
+using BLL.Interfaces;
 using BLL.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -32,8 +33,22 @@ namespace ServiceGO.Controllers
 
             int companyID = int.Parse(companyIdClaim.Value);
 
-            var drivers = await _driversService.GetAllDriversByCompanyAsync(companyID, 0 , 10);
+            var drivers = await _driversService.GetAllDriversByCompanyAsync(companyID, 0 , 50);
             return View(drivers);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [RequestSizeLimit(52428800)]
+        public async Task<IActionResult> Create(CreateDriverDTO model)
+        {
+            var addPermission = User.Claims.FirstOrDefault(c => c.Type == "AddPermission");
+            if (addPermission != null && Convert.ToBoolean(addPermission) == true)
+            {
+                return Ok();
+
+            }
+            return BadRequest();
         }
     }
 }

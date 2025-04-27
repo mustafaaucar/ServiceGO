@@ -31,7 +31,7 @@ namespace BLL.Services
         {
             var drivers = await _driversRepository.GetCompanyDrivers(companyID);
 
-            var totalCount = drivers.Count();
+            var totalCount = drivers.Count(); 
             var pagedDrivers = drivers
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
@@ -39,7 +39,7 @@ namespace BLL.Services
 
             var pagedDriversDto = _mapper.Map<List<DriversDTO>>(pagedDrivers);
 
-            return new PagedResult<DriversDTO>(pagedDriversDto, totalCount);
+            return new PagedResult<DriversDTO>(pagedDriversDto, totalCount , pageNumber);
         }
 
         public async Task<DriversDTO> GetDriverByIdAsync(int id)

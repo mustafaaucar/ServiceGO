@@ -38,7 +38,7 @@
                                                 <div class="dropdown-menu dropdown-menu-end">
                                                     <ul class="link-list-opt no-bdr">
                                                         <li>
-                                                            <a href="#">
+                                                            <a href="#" data-bs-toggle="modal" data-bs-target="#addDriverModal">
                                                                 <span>Yeni Şoför Kaydet</span>
                                                             </a>
                                                         </li>
@@ -241,22 +241,22 @@
                                             </div>
                                         </div>
                                         <div class="nk-tb-col">
-                                            <span class="sub-text">User</span>
+                                            <span class="sub-text">İsim</span>
                                         </div>
                                         <div class="nk-tb-col tb-col-mb">
-                                            <span class="sub-text">Balance</span>
+                                            <span class="sub-text">Doğum Tarihi</span>
                                         </div>
                                         <div class="nk-tb-col tb-col-md">
-                                            <span class="sub-text">Phone</span>
+                                            <span class="sub-text">Telefon Numarası</span>
                                         </div>
                                         <div class="nk-tb-col tb-col-lg">
-                                            <span class="sub-text">Verified</span>
+                                            <span class="sub-text">Adres</span>
                                         </div>
                                         <div class="nk-tb-col tb-col-lg">
-                                            <span class="sub-text">Last Login</span>
+                                            <span class="sub-text">Güncellenme Tarihi</span>
                                         </div>
                                         <div class="nk-tb-col tb-col-md">
-                                            <span class="sub-text">Status</span>
+                                            <span class="sub-text">Durum</span>
                                         </div>
                                         <div class="nk-tb-col nk-tb-col-tools text-end">
                                             <div class="dropdown">
@@ -317,45 +317,38 @@
                                             </div>
                                             <div class="nk-tb-col tb-col-mb">
                                                 <span class="tb-amount">
-                                                    @item.Birthdate
+                                                    @item.Birthdate.ToString("dd-MM-yyyy")
                                                 </span>
                                             </div>
                                             <div class="nk-tb-col tb-col-md">
                                                 <span>@item.PhoneNumber</span>
                                             </div>
                                             <div class="nk-tb-col tb-col-lg">
-                                                <ul class="list-status">
-                                                    <li>
-                                                        <em class="icon text-success ni ni-check-circle"></em>
-                                                        <span>Email</span>
-                                                    </li>
-                                                    <li>
-                                                        <em class="icon ni ni-alert-circle"></em>
-                                                        <span>KYC</span>
-                                                    </li>
-                                                </ul>
+                                                    <span>@item.Adress</span>
                                             </div>
                                             <div class="nk-tb-col tb-col-lg">
-                                                <span>10 Feb 2020</span>
+                                                <span>@item.ModifiedDate.ToString("dd-MM-yyyy")</span>
                                             </div>
                                             <div class="nk-tb-col tb-col-md">
-                                                <span class="tb-status text-success">Active</span>
+                                                @if (item.IsActive)
+                                                {
+                                                    <span class="tb-status text-success">Aktif</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="tb-status text-danger">Pasif</span>
+                                                }
                                             </div>
                                             <div class="nk-tb-col nk-tb-col-tools">
                                                 <ul class="nk-tb-actions gx-1">
                                                     <li class="nk-tb-action-hidden">
-                                                        <a href="#" class="btn btn-trigger btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Wallet">
+                                                        <a href="#" class="btn btn-trigger btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Kimlik Kartını Göster">
                                                             <em class="icon ni ni-wallet-fill"></em>
                                                         </a>
                                                     </li>
                                                     <li class="nk-tb-action-hidden">
-                                                        <a href="#" class="btn btn-trigger btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Send Email">
+                                                        <a href="#" class="btn btn-trigger btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Ehliyet Belgesini Göster">
                                                             <em class="icon ni ni-mail-fill"></em>
-                                                        </a>
-                                                    </li>
-                                                    <li class="nk-tb-action-hidden">
-                                                        <a href="#" class="btn btn-trigger btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Suspend">
-                                                            <em class="icon ni ni-user-cross-fill"></em>
                                                         </a>
                                                     </li>
                                                     <li>
@@ -367,45 +360,14 @@
                                                                 <ul class="link-list-opt no-bdr">
                                                                     <li>
                                                                         <a href="#">
-                                                                            <em class="icon ni ni-focus"></em>
-                                                                            <span>Quick View</span>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="#">
                                                                             <em class="icon ni ni-eye"></em>
-                                                                            <span>View Details</span>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="#">
-                                                                            <em class="icon ni ni-repeat"></em>
-                                                                            <span>Transaction</span>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="#">
-                                                                            <em class="icon ni ni-activity-round"></em>
-                                                                            <span>Activities</span>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li class="divider"></li>
-                                                                    <li>
-                                                                        <a href="#">
-                                                                            <em class="icon ni ni-shield-star"></em>
-                                                                            <span>Reset Pass</span>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="#">
-                                                                            <em class="icon ni ni-shield-off"></em>
-                                                                            <span>Reset 2FA</span>
+                                                                            <span>Detay Görüntüle</span>
                                                                         </a>
                                                                     </li>
                                                                     <li>
                                                                         <a href="#">
                                                                             <em class="icon ni ni-na"></em>
-                                                                            <span>Suspend User</span>
+                                                                            <span>Pasif Hale Getir</span>
                                                                         </a>
                                                                     </li>
                                                                 </ul>
@@ -423,65 +385,107 @@
                                 <div class="nk-block-between-md g-3">
                                     <div class="g">
                                         <ul class="pagination justify-content-center justify-content-md-start">
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">Prev</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">1</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">2</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <span class="page-link">
-                                                    <em class="icon ni ni-more-h"></em>
-                                                </span>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">6</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">7</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">Next</a>
-                                            </li>
+                                            @if (Model.CurrentPage > 1)
+                                            {
+                                                <li class="page-item">
+                                                    <a class="page-link" href="?page=@(Model.CurrentPage - 1)">Prev</a>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li class="page-item disabled">
+                                                    <a class="page-link" href="#">Prev</a>
+                                                </li>
+                                            }
+                                            @for (var i = 1; i <= Model.TotalCount; i++)
+                                            {
+                                                <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                                    <a class="page-link" href="?page=@i">@i</a>
+                                                </li>
+                                            }
+                                            @if (Model.TotalCount > 7 && Model.CurrentPage > 4)
+                                            {
+                                                <li class="page-item disabled">
+                                                    <span class="page-link">...</span>
+                                                </li>
+                                            }
+                                            @if (Model.CurrentPage < Model.TotalCount)
+                                            {
+                                                <li class="page-item">
+                                                    <a class="page-link" href="?page=@(Model.CurrentPage + 1)">Next</a>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li class="page-item disabled">
+                                                    <a class="page-link" href="#">Next</a>
+                                                </li>
+                                            }
                                         </ul>
-                                    </div>
-                                    <div class="g">
-                                        <div class="pagination-goto d-flex justify-content-center justify-content-md-start gx-3">
-                                            <div>Page</div>
-                                            <div>
-                                                <select class="form-select js-select2" data-search="on" data-dropdown="xs center">
-                                                    <option value="page-1">1</option>
-                                                    <option value="page-2">2</option>
-                                                    <option value="page-4">4</option>
-                                                    <option value="page-5">5</option>
-                                                    <option value="page-6">6</option>
-                                                    <option value="page-7">7</option>
-                                                    <option value="page-8">8</option>
-                                                    <option value="page-9">9</option>
-                                                    <option value="page-10">10</option>
-                                                    <option value="page-11">11</option>
-                                                    <option value="page-12">12</option>
-                                                    <option value="page-13">13</option>
-                                                    <option value="page-14">14</option>
-                                                    <option value="page-15">15</option>
-                                                    <option value="page-16">16</option>
-                                                    <option value="page-17">17</option>
-                                                    <option value="page-18">18</option>
-                                                    <option value="page-19">19</option>
-                                                    <option value="page-20">20</option>
-                                                </select>
-                                            </div>
-                                            <div>OF 102</div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="addDriverModal" tabindex="-1" aria-labelledby="addDriverModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addDriverModalLabel">Yeni Şoför Kaydet</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addDriverForm" method="post" action="@Url.Action("Create", "Drivers")" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="Name" class="form-label">İsim</label>
+                        <input type="text" class="form-control" id="Name" name="Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Surname" class="form-label">Soyisim</label>
+                        <input type="text" class="form-control" id="Surname" name="Surname" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Birthdate" class="form-label">Doğum Tarihi</label>
+                        <input type="datetime" class="form-control" id="Birthdate" name="Birthdate" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="CitizenshipNumber" class="form-label">TC Kimlik No</label>
+                        <input type="text" class="form-control" id="CitizenshipNumber" name="CitizenshipNumber" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Email" class="form-label">E-mail Adresi</label>
+                        <input type="email" class="form-control" id="Email" name="Email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="PhoneNumber" class="form-label">Telefon Numarası</label>
+                        <input type="text" class="form-control" id="PhoneNumber" name="PhoneNumber" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Adress" class="form-label">Adres</label>
+                        <input type="text" class="form-control" id="Adress" name="Adress" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="IdentityCardPhoto" class="form-label">Kimlik Kartı (Arkalı Önlü)</label>
+                        <input type="file" class="form-control" id="IdentityCardPhoto" name="IdentityCardPhoto" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="DriverCardPhoto" class="form-label">Ehliyet Kartı (Arkalı Önlü)</label>
+                        <input type="file" class="form-control" id="DriverCardPhoto" name="DriverCardPhoto" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

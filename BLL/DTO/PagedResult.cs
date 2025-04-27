@@ -10,11 +10,13 @@ namespace BLL.DTO
     {
         public IEnumerable<T> Items { get; set; }
         public int TotalCount { get; set; }
+        public int CurrentPage { get; set; }
 
-        public PagedResult(IEnumerable<T> items, int totalCount)
+        public PagedResult(IEnumerable<T> items, int totalCount, int currentPage)
         {
             Items = items;
             TotalCount = totalCount;
+            CurrentPage = currentPage;
         }
 
         
