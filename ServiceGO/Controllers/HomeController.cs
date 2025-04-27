@@ -24,10 +24,10 @@ namespace ServiceGO.Controllers
         }
 
         [Authorize]
-        public IActionResult Index()
+        public IActionResult Index(int companyID)
 		{
-            var drivers = _driversService.GetAllDriversAsync().Result;
-            return View(drivers);
+            
+            return View();
         }
         [HttpGet]
         public IActionResult Login()

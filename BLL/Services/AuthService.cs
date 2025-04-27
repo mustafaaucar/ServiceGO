@@ -93,7 +93,8 @@ namespace BLL.Services
                 new Claim(ClaimTypes.Role, "Manager"),
                 new Claim("AddPermission", manager.AddPermission.ToString()),
                 new Claim("UpdatePermission", manager.UpdatePermission.ToString()),
-                new Claim("DeletePermission", manager.DeletePermission.ToString())
+                new Claim("DeletePermission", manager.DeletePermission.ToString()),
+                new Claim("CompanyID", manager.CompanyID.ToString())
             };
 
             var tokenDescriptor = new SecurityTokenDescriptor

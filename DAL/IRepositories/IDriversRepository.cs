@@ -10,6 +10,6 @@ namespace DAL.IRepositories
 {
 	public interface IDriversRepository : IBaseRepository<Drivers>
 	{
-
+		Task<IEnumerable<Drivers>> GetCompanyDrivers(int companyID);
 	}
 }

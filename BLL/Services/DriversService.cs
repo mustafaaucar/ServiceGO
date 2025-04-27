@@ -27,13 +27,22 @@ namespace BLL.Services
         {
         }
 
-        public async Task<IEnumerable<DriversDTO>> GetAllDriversAsync()
-		{
-			var drivers = await _driversRepository.GetAllAsync();
-			return _mapper.Map<IEnumerable<DriversDTO>>(drivers);
-		}
+        public async Task<PagedResult<DriversDTO>> GetAllDriversByCompanyAsync(int companyID, int pageNumber, int pageSize)
+        {
+            var drivers = await _driversRepository.GetCompanyDrivers(companyID);
 
-		public async Task<DriversDTO> GetDriverByIdAsync(int id)
+            var totalCount = drivers.Count();
+            var pagedDrivers = drivers
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            var pagedDriversDto = _mapper.Map<List<DriversDTO>>(pagedDrivers);
+
+            return new PagedResult<DriversDTO>(pagedDriversDto, totalCount);
+        }
+
+        public async Task<DriversDTO> GetDriverByIdAsync(int id)
 		{
 			var driver = await _driversRepository.GetByIdAsync(id);
 			return _mapper.Map<DriversDTO>(driver);
@@ -59,5 +68,10 @@ namespace BLL.Services
 				_driversRepository.Delete(driver);
 			}
 		}
-	}
+
+        public Task<IEnumerable<DriversDTO>> GetAllDriversAsync()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
