@@ -48,9 +48,64 @@ namespace BLL.Services
 			return _mapper.Map<DriversDTO>(driver);
 		}
 
-		public async Task AddDriverAsync(DriversDTO driverDto)
+		public async Task AddDriverAsync(CreateDriverDTO driverDto)
 		{
-			var driver = _mapper.Map<Drivers>(driverDto);
+            DriversDTO model = new DriversDTO();
+            if (driverDto.IdentityCardPhoto != null)
+            {
+                var identityCardFile = driverDto.IdentityCardPhoto;
+                var identityCardPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "identitycards");
+
+                if (!Directory.Exists(identityCardPath))
+                {
+                    Directory.CreateDirectory(identityCardPath);
+                }
+
+                var identityCardFileName = Guid.NewGuid().ToString() + Path.GetExtension(identityCardFile.FileName);
+                var identityCardFilePath = Path.Combine(identityCardPath, identityCardFileName);
+
+                using (var stream = new FileStream(identityCardFilePath, FileMode.Create))
+                {
+                    await identityCardFile.CopyToAsync(stream);
+                }
+
+                model.IdentityCardPhoto = Path.Combine("uploads", "identitycards", identityCardFileName);
+            }
+
+            if (driverDto.DriverCardPhoto != null)
+            {
+                var driverCardFile = driverDto.DriverCardPhoto;
+                var driverCardPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "drivercards");
+
+                if (!Directory.Exists(driverCardPath))
+                {
+                    Directory.CreateDirectory(driverCardPath);
+                }
+
+                var driverCardFileName = Guid.NewGuid().ToString() + Path.GetExtension(driverCardFile.FileName);
+                var driverCardFilePath = Path.Combine(driverCardPath, driverCardFileName);
+
+                using (var stream = new FileStream(driverCardFilePath, FileMode.Create))
+                {
+                    await driverCardFile.CopyToAsync(stream);
+                }
+
+                model.DriverCardPhoto = Path.Combine("uploads", "drivercards", driverCardFileName);
+            }
+
+            model.Adress = driverDto.Adress;
+            model.CreatedDate = driverDto.CreatedDate;
+            model.ModifiedDate = driverDto.ModifiedDate;
+            model.Birthdate = driverDto.Birthdate;
+            model.CitizenshipNumber = driverDto.CitizenshipNumber;
+            model.Email = driverDto.Email;
+            model.Name = driverDto.Name;
+            model.Surname = driverDto.Surname;
+            model.PhoneNumber = driverDto.PhoneNumber;
+            model.IsActive = driverDto.IsActive;
+
+
+            var driver = _mapper.Map<Drivers>(model);
 			await _driversRepository.AddAsync(driver);
 		}
 

@@ -17,7 +17,10 @@ builder.Services.Configure<JwtSettingsDTO>(builder.Configuration.GetSection("Jwt
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
-
+builder.Services.Configure<IISServerOptions>(options =>
+{
+    options.MaxRequestBodySize = 104857600; 
+});
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))

@@ -43,12 +43,12 @@ namespace ServiceGO.Controllers
         public async Task<IActionResult> Create(CreateDriverDTO model)
         {
             var addPermission = User.Claims.FirstOrDefault(c => c.Type == "AddPermission");
-            if (addPermission != null && Convert.ToBoolean(addPermission) == true)
+            if (addPermission != null && Convert.ToBoolean(addPermission.Value) == true)
             {
-                return Ok();
-
+                await _driversService.AddDriverAsync(model);
+                return RedirectToAction("Index");
             }
-            return BadRequest();
+            return RedirectToAction("Index");
         }
     }
 }

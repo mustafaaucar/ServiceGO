@@ -14,7 +14,7 @@ namespace BLL.Interfaces
 
 		Task<DriversDTO> GetDriverByIdAsync(int id);
 
-		Task AddDriverAsync(DriversDTO driverDto);
+		Task AddDriverAsync(CreateDriverDTO driverDto);
 
 		Task UpdateDriverAsync(DriversDTO driverDto);
 
