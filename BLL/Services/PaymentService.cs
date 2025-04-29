@@ -1,5 +1,7 @@
-﻿using BLL.DTO;
+﻿using AutoMapper;
+using BLL.DTO;
 using BLL.Interfaces;
+using DAL.IRepositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +12,17 @@ namespace BLL.Services
 {
     public class PaymentService : IPaymentService
     {
-        public Task<PaymentDTO> GetPayment(int driverID, int companyID)
+        private readonly IPaymentRepository _paymentRepository;
+        private readonly IMapper _mapper;
+        public PaymentService(IPaymentRepository paymentRepository, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _paymentRepository = paymentRepository;
+            _mapper = mapper;
+        }
+        public async Task<List<PaymentDTO>> GetPayment(int driverID, int companyID)
+        {
+            var payments = await _paymentRepository.GetPayment(driverID, companyID);
+            return _mapper.Map<List<PaymentDTO>>(payments);
         }
     }
 }

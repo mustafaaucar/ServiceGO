@@ -12,12 +12,14 @@ namespace ServiceGO.Controllers
         private readonly ILogger<Drivers> _logger;
         private readonly IDriversService _driversService;
         private readonly IRoutesService _routesService;
+        private readonly IPaymentService _paymentService;
 
-        public Drivers(ILogger<Drivers> logger, IDriversService driversService, IRoutesService routesService)
+        public Drivers(ILogger<Drivers> logger, IDriversService driversService, IRoutesService routesService, IPaymentService paymentService)
         {
             _logger = logger;
             _driversService = driversService;
             _routesService = routesService;
+            _paymentService = paymentService;
         }
 
 
@@ -60,10 +62,13 @@ namespace ServiceGO.Controllers
         {
             DriverDetailsPageDTO details = new DriverDetailsPageDTO();
             var listPermission = User.Claims.FirstOrDefault(c => c.Type == "ListPermission");
+            var companyIdClaim = User.Claims.FirstOrDefault(c => c.Type == "CompanyID");
+            int companyID = int.Parse(companyIdClaim.Value);
             if (listPermission != null && Convert.ToBoolean(listPermission.Value) == true)
             {
                 details.DriverInfo = await _driversService.GetDriverByIdAsync(driverID);
                 details.DriverRoutes = await _routesService.GetDriverRoutes(driverID);
+                details.Payments = await _paymentService.GetPayment(driverID, companyID);
                 return View(details);
             }
             else

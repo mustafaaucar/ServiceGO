@@ -19,19 +19,19 @@ namespace DAL.Repositories
             _context = context;
         }
 
-        public async Task<Payment> GetPayment(int driverID, int companyID)
+        public async Task<List<Payment>> GetPayment(int driverID, int companyID)
         {
             try
             {
                 var payment = await (from cd in _context.CompanyDrivers
                                      join p in _context.Payment on cd.DriverID equals p.Id
                                      where cd.DriverID == driverID && cd.CompanyID == companyID
-                                     select p).FirstOrDefaultAsync();
+                                     select p).ToListAsync();
                 return payment;
             }
             catch (Exception)
             {
-                Payment payment = new Payment();
+                List<Payment> payment = new List<Payment>();
                 return payment;
             }
             

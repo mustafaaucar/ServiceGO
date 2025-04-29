@@ -172,101 +172,43 @@
                                         }
                                     </div>
                                     <div class="nk-block">
-                                        <h6 class="lead-text mb-3">Payment Methods</h6>
+                                        <h6 class="lead-text mb-3">Ödeme Yöntemleri</h6>
                                         <div class="row g-3">
-                                            <div class="col-xl-12 col-xxl-6">
-                                                <div class="card card-bordered">
-                                                    <div class="card-inner">
-                                                        <div class="d-flex align-items-center justify-content-between">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="icon-circle icon-circle-lg">
-                                                                    <em class="icon ni ni-visa"></em>
+                                            @foreach (var item in Model.Payments)
+                                            {
+                                                <div class="col-xl-12 col-xxl-6">
+                                                    <div class="card card-bordered">
+                                                        <div class="card-inner">
+                                                            <div class="d-flex align-items-center justify-content-between">
+                                                                <div class="d-flex align-items-center">
+                                                                    <div class="icon-circle icon-circle-lg">
+                                                                        <em class="icon ni ni-visa"></em>
+                                                                    </div>
+                                                                    <div class="ms-3">
+                                                                        <h6 class="lead-text">
+                                                                            @item.BankName <span class="text-soft ml-1">@item.IBAN</span>
+                                                                        </h6>
+                                                                        <span class="sub-text">@item.LastUsageDay</span>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="ms-3">
-                                                                    <h6 class="lead-text">
-                                                                        Visa Card <span class="text-soft ml-1">**** 1955</span>
-                                                                    </h6>
-                                                                    <span class="sub-text">Expires Nov 2023</span>
-                                                                </div>
+                                                                <ul class="btn-toolbar justify-center gx-1 me-n1 flex-nowrap">
+                                                                    <li>
+                                                                        <a href="#" class="btn btn-trigger btn-icon">
+                                                                            <em class="icon ni ni-edit"></em>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#" class="btn btn-trigger btn-icon">
+                                                                            <em class="icon ni ni-trash"></em>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
                                                             </div>
-                                                            <ul class="btn-toolbar justify-center gx-1 me-n1 flex-nowrap">
-                                                                <li>
-                                                                    <a href="#" class="btn btn-trigger btn-icon">
-                                                                        <em class="icon ni ni-edit"></em>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#" class="btn btn-trigger btn-icon">
-                                                                        <em class="icon ni ni-trash"></em>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-xl-12 col-xxl-6">
-                                                <div class="card card-bordered">
-                                                    <div class="card-inner">
-                                                        <div class="d-flex align-items-center justify-content-between">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="icon-circle icon-circle-lg bg-indigo">
-                                                                    <em class="icon ni ni-american-express"></em>
-                                                                </div>
-                                                                <div class="ms-3">
-                                                                    <h6 class="lead-text">
-                                                                        American Express <span class="text-soft ml-1">**** 4352</span>
-                                                                    </h6>
-                                                                    <span class="sub-text">Expires Feb 2024</span>
-                                                                </div>
-                                                            </div>
-                                                            <ul class="btn-toolbar justify-center gx-1 me-n1 flex-nowrap">
-                                                                <li>
-                                                                    <a href="#" class="btn btn-trigger btn-icon">
-                                                                        <em class="icon ni ni-edit"></em>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#" class="btn btn-trigger btn-icon">
-                                                                        <em class="icon ni ni-trash"></em>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-12 col-xxl-6">
-                                                <div class="card card-bordered">
-                                                    <div class="card-inner">
-                                                        <div class="d-flex align-items-center justify-content-between">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="icon-circle icon-circle-lg bg-orange">
-                                                                    <em class="icon ni ni-mc"></em>
-                                                                </div>
-                                                                <div class="ms-3">
-                                                                    <h6 class="lead-text">
-                                                                        Mastercard <span class="text-soft ml-1">**** 9478</span>
-                                                                    </h6>
-                                                                    <span class="sub-text text-danger">Expired</span>
-                                                                </div>
-                                                            </div>
-                                                            <ul class="btn-toolbar justify-center gx-1 me-n1 flex-nowrap">
-                                                                <li>
-                                                                    <a href="#" class="btn btn-trigger btn-icon">
-                                                                        <em class="icon ni ni-edit"></em>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#" class="btn btn-trigger btn-icon">
-                                                                        <em class="icon ni ni-trash"></em>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            }
+                                          
                                             <div class="col-xl-12 col-xxl-6">
                                                 <button class="h-100 w-100 bg-white border border-dashed round-sm p-4 d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#add-card">
                                                     <span class="text-soft">Add New Card</span>

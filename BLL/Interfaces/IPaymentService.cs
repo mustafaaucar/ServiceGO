@@ -9,6 +9,6 @@ namespace BLL.Interfaces
 {
     public interface IPaymentService
     {
-        Task<PaymentDTO> GetPayment(int driverID, int companyID);
+        Task<List<PaymentDTO>> GetPayment(int driverID, int companyID);
     }
 }

@@ -27,6 +27,8 @@ namespace BLL.AutoMapper
             CreateMap<Companies, CompaniesDTO>();
             CreateMap<CompaniesDTO, Companies>();
 
+            CreateMap<Payment, PaymentDTO>();
+            CreateMap<PaymentDTO, Payment>();
         }
 	}
 }

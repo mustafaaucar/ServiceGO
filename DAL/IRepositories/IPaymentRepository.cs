@@ -10,6 +10,6 @@ namespace DAL.IRepositories
 {
     public interface IPaymentRepository : IBaseRepository<Payment>
     {
-        Task<Payment> GetPayment(int driverID, int companyID);
+        Task<List<Payment>> GetPayment(int driverID, int companyID);
     }
 }

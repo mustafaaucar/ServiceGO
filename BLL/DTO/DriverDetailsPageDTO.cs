@@ -10,5 +10,6 @@ namespace BLL.DTO
     {
         public DriversDTO DriverInfo { get; set; }
         public List<RouteDto> DriverRoutes { get; set; }
+        public List<PaymentDTO> Payments { get; set; }
     }
 }
