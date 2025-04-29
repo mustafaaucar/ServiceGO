@@ -17,5 +17,6 @@ namespace DAL.ApplicationDbContext
 		public DbSet<Route> Routes { get; set; }
 		public DbSet<Companies> Companies { get; set; }
 		public DbSet<Managers> Managers { get; set; }
+		public DbSet<CompanyDrivers> CompanyDrivers{ get; set; }
 	}
 }

@@ -15,11 +15,13 @@ namespace BLL.Services
 	public class DriversService : IDriversService
 	{
 		private readonly IDriversRepository _driversRepository;
+		private readonly ICompanyDriversRepository _companyDriversRepository;
 		private readonly IMapper _mapper;
 
-		public DriversService(IDriversRepository driversRepository, IMapper mapper)
+		public DriversService(IDriversRepository driversRepository, IMapper mapper, ICompanyDriversRepository companyDriversRepository)
 		{
 			_driversRepository = driversRepository;
+            _companyDriversRepository = companyDriversRepository;
 			_mapper = mapper;
 		}
 
@@ -29,17 +31,26 @@ namespace BLL.Services
 
         public async Task<PagedResult<DriversDTO>> GetAllDriversByCompanyAsync(int companyID, int pageNumber, int pageSize)
         {
-            var drivers = await _driversRepository.GetCompanyDrivers(companyID);
+            try
+            {
+                var drivers = await _driversRepository.GetCompanyDrivers(companyID);
 
-            var totalCount = drivers.Count(); 
-            var pagedDrivers = drivers
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
+                var totalCount = drivers.Count();
+                var pagedDrivers = drivers
+                    .Skip((pageNumber - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
 
-            var pagedDriversDto = _mapper.Map<List<DriversDTO>>(pagedDrivers);
+                var pagedDriversDto = _mapper.Map<List<DriversDTO>>(pagedDrivers);
 
-            return new PagedResult<DriversDTO>(pagedDriversDto, totalCount , pageNumber);
+                return new PagedResult<DriversDTO>(pagedDriversDto, totalCount, pageNumber);
+            }
+            catch (Exception)
+            {
+                var emptyList = new List<DriversDTO>();
+                return new PagedResult<DriversDTO>(emptyList, 0, pageNumber);
+            }
+            
         }
 
         public async Task<DriversDTO> GetDriverByIdAsync(int id)
@@ -104,10 +115,26 @@ namespace BLL.Services
             model.PhoneNumber = driverDto.PhoneNumber;
             model.IsActive = driverDto.IsActive;
 
+            try
+            {
+                var driver = _mapper.Map<Drivers>(model);
+                var newDriver = await _driversRepository.AddAsync(driver);
+                CompanyDrivers drivers = new CompanyDrivers
+                {
+                    DriverID = newDriver.Id,
+                    CompanyID = driverDto.CompanyID,
+                    RouteID = null // güzergah atamıyorsan null ver
+                };
+                await _companyDriversRepository.AddAsync(drivers);
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+                throw;
+            }
 
-            var driver = _mapper.Map<Drivers>(model);
-			await _driversRepository.AddAsync(driver);
-		}
+    
+        }
 
 		public async Task UpdateDriverAsync(DriversDTO driverDto)
 		{

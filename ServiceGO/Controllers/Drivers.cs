@@ -45,6 +45,8 @@ namespace ServiceGO.Controllers
             var addPermission = User.Claims.FirstOrDefault(c => c.Type == "AddPermission");
             if (addPermission != null && Convert.ToBoolean(addPermission.Value) == true)
             {
+                var companyIdClaim = User.Claims.FirstOrDefault(c => c.Type == "CompanyID");
+                model.CompanyID = int.Parse(companyIdClaim.Value);
                 await _driversService.AddDriverAsync(model);
                 return RedirectToAction("Index");
             }

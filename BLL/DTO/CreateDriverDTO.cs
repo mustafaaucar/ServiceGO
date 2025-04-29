@@ -16,6 +16,7 @@ namespace BLL.DTO
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string Adress { get; set; }
+        public int CompanyID { get; set; } 
         public IFormFile IdentityCardPhoto { get; set; }
         public IFormFile DriverCardPhoto { get; set; }
         public bool IsActive { get; set; } = true;

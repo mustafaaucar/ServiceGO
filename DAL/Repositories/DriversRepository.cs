@@ -22,18 +22,19 @@ namespace DAL.Repositories
             _dbSet = context.Set<Drivers>();
         }
 
+   
+
         public async Task<IEnumerable<Drivers>> GetCompanyDrivers(int companyID)
         {
             var driverIds = new List<int>();
             try
             {
-                var drivers = await (from route in _context.Routes
-                                     join driver in _dbSet on route.DriverID equals driver.Id
-                                     where route.IsActive && driver.IsActive && route.CompanyID == companyID
+                var drivers = await (from driver in _context.Drivers
+                                     join companyDrivers in _context.CompanyDrivers on driver.Id equals companyDrivers.DriverID
+                                     where companyDrivers.CompanyID == companyID
                                      select driver)
                          .Distinct()
                          .ToListAsync();
-
                 return drivers;
             }
             catch (Exception)
@@ -45,5 +46,8 @@ namespace DAL.Repositories
                 throw;
             }
         }
+
+        
+
     }
 }

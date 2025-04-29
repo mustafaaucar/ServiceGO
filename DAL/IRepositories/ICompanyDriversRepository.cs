@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace DAL.IRepositories
 {
-	public interface IDriversRepository : IBaseRepository<Drivers>
-	{
-		Task<IEnumerable<Drivers>> GetCompanyDrivers(int companyID);
+    public interface ICompanyDriversRepository : IBaseRepository<CompanyDrivers>
+    {
+
     }
 }

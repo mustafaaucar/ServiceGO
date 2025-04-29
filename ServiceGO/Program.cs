@@ -32,6 +32,9 @@ builder.Services.AddScoped<IDriversService, DriversService>();
 builder.Services.AddScoped<IDriversRepository, DriversRepository>();
 builder.Services.AddScoped<IManagerRepository, ManagersRepository>();
 
+
+builder.Services.AddScoped<ICompanyDriversRepository, CompanyDriversRepository>();
+
 builder.Services.AddScoped<ICompaniesService, CompaniesService>();
 builder.Services.AddScoped<ICompaniesRepository, CompaniesRepository>();
 
