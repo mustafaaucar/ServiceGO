@@ -1,0 +1,336 @@
+﻿@using BLL.DTO
+@model DriverDetailsPageDTO
+@{
+    ViewData["Title"] = "DriverDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="nk-content ">
+    <div class="container">
+        <div class="nk-content-inner">
+            <div class="nk-content-body">
+                <div class="nk-block-head nk-block-head-sm">
+                    <div class="nk-block-between g-3">
+                        <div class="nk-block-head-content">
+                            <h3 class="nk-block-title page-title">Şoför Bilgileri</h3>
+                            <div class="nk-block-des text-soft">
+                            </div>
+                        </div>
+                        <div class="nk-block-head-content">
+                            <a href="customer-list.html" class="btn btn-outline-light bg-white d-none d-sm-inline-flex">
+                                <em class="icon ni ni-arrow-left"></em>
+                                <span>Back</span>
+                            </a>
+                            <a href="customer-list.html" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none">
+                                <em class="icon ni ni-arrow-left"></em>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nk-block">
+                    <div class="row g-gs">
+                        <div class="col-lg-4 col-xl-4 col-xxl-3">
+                            <div class="card card-bordered">
+                                <div class="card-inner-group">
+                                    <div class="card-inner">
+                                        <div class="user-card user-card-s2">
+
+                                            <div class="user-info">
+                                                <div style="display:inline-block">
+                                                    <h5>@Model.DriverInfo.Name @Model.DriverInfo.Surname</h5>
+                                                    <div class="badge bg-light rounded-pill ucap">@(Model.DriverInfo.IsActive == true ? "Aktif" : "Pasif")</div>
+                                                </div>
+
+                                                <span class="sub-text">@Model.DriverInfo.Email</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-inner card-inner-sm">
+                                        <ul class="btn-toolbar justify-center gx-1">
+                                            <li>
+                                                <a href="#" class="btn btn-trigger btn-icon">
+                                                    <em class="icon ni ni-shield-off"></em>
+                                                </a>
+                                                <span>Güzergah Ver</span>
+                                            </li>
+
+                                            <li>
+                                                <a href="#" class="btn btn-trigger btn-icon text-danger">
+                                                    <em class="icon ni ni-na"></em>
+                                                </a>
+                                                <span>Pasif Duruma Çek</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="card-inner">
+                                        <div class="row text-center">
+                                            <div class="col-4">
+                                                <div class="profile-stats">
+                                                    <span class="amount">@Model.DriverRoutes.Count</span>
+                                                    <span class="sub-text">Güzergahlar</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="profile-stats">
+                                                    <span class="amount">20</span>
+                                                    <span class="sub-text">Yolcular</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="profile-stats">
+                                                    <span class="amount">@(Model.DriverRoutes.FirstOrDefault() != null ? Model.DriverRoutes.FirstOrDefault().SeatNumber : "-")</span>
+                                                    <span class="sub-text">Kapasite</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-inner">
+                                        <h6 class="overline-title mb-2">Detaylar</h6>
+                                        <div class="row g-3">
+                                            <div class="col-sm-6 col-md-4 col-lg-12">
+                                                <span class="sub-text">TC Kimlik Numarası:</span>
+                                                <span>@Model.DriverInfo.CitizenshipNumber</span>
+                                            </div>
+                                            <div class="col-sm-6 col-md-4 col-lg-12">
+                                                <span class="sub-text">Doğum Tarihi:</span>
+                                                <span>@Model.DriverInfo.Birthdate.ToString("dd-MM-yyyy")</span>
+                                            </div>
+                                            <div class="col-sm-6 col-md-4 col-lg-12">
+                                                <span class="sub-text">Telefon Numarası:</span>
+                                                <span>@Model.DriverInfo.PhoneNumber</span>
+                                            </div>
+                                            <div class="col-sm-6 col-md-4 col-lg-12">
+                                                <span class="sub-text">Ev Adresi: </span>
+                                                <span>@Model.DriverInfo.Adress </span>
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-4 col-lg-12">
+                                                <span class="sub-text">Son Güncellenme Tarihi:</span>
+                                                <span>@Model.DriverInfo.ModifiedDate.ToString("dd-MM-yyyy HH:mm")</span>
+                                            </div>
+                                            <div class="col-sm-6 col-md-4 col-lg-12">
+                                                <span class="sub-text">Oluşturma Tarihi:</span>
+                                                <span>@Model.DriverInfo.CreatedDate.ToString("dd-MM-yyyy HH:mm")</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-xl-8 col-xxl-9">
+                            <div class="card card-bordered">
+                                <div class="card-inner">
+                                    <div class="nk-block">
+                                        <h6 class="lead-text mb-3">Atanmış Olduğu Güzergahlar</h6>
+                                        <div class="nk-tb-list nk-tb-ulist is-compact border round-sm">
+                                            <div class="nk-tb-item nk-tb-head">
+                                                <div class="nk-tb-col">
+                                                    <span class="sub-text">Güzergah Numarası</span>
+                                                </div>
+                                                <div class="nk-tb-col tb-col-sm">
+                                                    <span class="sub-text">Güzergah Adı</span>
+                                                </div>
+                                                <div class="nk-tb-col tb-col-xxl">
+                                                    <span class="sub-text">Ücret</span>
+                                                </div>
+                                                <div class="nk-tb-col">
+                                                    <span class="sub-text">Durum</span>
+                                                </div>
+                                            </div>
+                                            @if (Model.DriverRoutes.Count > 0)
+                                            {
+                                                @foreach (var item in Model.DriverRoutes)
+                                                {
+                                                    <div class="nk-tb-item">
+                                                        <div class="nk-tb-col">
+                                                            <a href="#">
+                                                                <span class="fw-bold">#@item.Id</span>
+                                                            </a>
+                                                        </div>
+                                                        <div class="nk-tb-col tb-col-sm">
+                                                            <span class="tb-product">
+                                                                <img src="images/product/c.png" alt="" class="thumb">
+                                                                <span class="title">@item.RouteName</span>
+                                                            </span>
+                                                        </div>
+                                                        <div class="nk-tb-col tb-col-xxl">
+                                                            <span class="amount">@item.PricePerKM /km</span>
+                                                        </div>
+                                                        <div class="nk-tb-col">
+                                                            <span class="lead-text text-warning">@(item.IsActive == true ? "Aktif" : "False")</span>
+                                                        </div>
+
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                       @if (Model.DriverRoutes.Count <= 0)
+                                        {
+                                            <div style="display: flex;align-items: center;justify-content: center;border: 1px solid lightgrey;font-size: medium;">
+                                                <span style="text-align:center">Aktif Bir Güzergaha Atanmamış</span>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="nk-block">
+                                        <h6 class="lead-text mb-3">Payment Methods</h6>
+                                        <div class="row g-3">
+                                            <div class="col-xl-12 col-xxl-6">
+                                                <div class="card card-bordered">
+                                                    <div class="card-inner">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="icon-circle icon-circle-lg">
+                                                                    <em class="icon ni ni-visa"></em>
+                                                                </div>
+                                                                <div class="ms-3">
+                                                                    <h6 class="lead-text">
+                                                                        Visa Card <span class="text-soft ml-1">**** 1955</span>
+                                                                    </h6>
+                                                                    <span class="sub-text">Expires Nov 2023</span>
+                                                                </div>
+                                                            </div>
+                                                            <ul class="btn-toolbar justify-center gx-1 me-n1 flex-nowrap">
+                                                                <li>
+                                                                    <a href="#" class="btn btn-trigger btn-icon">
+                                                                        <em class="icon ni ni-edit"></em>
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#" class="btn btn-trigger btn-icon">
+                                                                        <em class="icon ni ni-trash"></em>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-12 col-xxl-6">
+                                                <div class="card card-bordered">
+                                                    <div class="card-inner">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="icon-circle icon-circle-lg bg-indigo">
+                                                                    <em class="icon ni ni-american-express"></em>
+                                                                </div>
+                                                                <div class="ms-3">
+                                                                    <h6 class="lead-text">
+                                                                        American Express <span class="text-soft ml-1">**** 4352</span>
+                                                                    </h6>
+                                                                    <span class="sub-text">Expires Feb 2024</span>
+                                                                </div>
+                                                            </div>
+                                                            <ul class="btn-toolbar justify-center gx-1 me-n1 flex-nowrap">
+                                                                <li>
+                                                                    <a href="#" class="btn btn-trigger btn-icon">
+                                                                        <em class="icon ni ni-edit"></em>
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#" class="btn btn-trigger btn-icon">
+                                                                        <em class="icon ni ni-trash"></em>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-12 col-xxl-6">
+                                                <div class="card card-bordered">
+                                                    <div class="card-inner">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="icon-circle icon-circle-lg bg-orange">
+                                                                    <em class="icon ni ni-mc"></em>
+                                                                </div>
+                                                                <div class="ms-3">
+                                                                    <h6 class="lead-text">
+                                                                        Mastercard <span class="text-soft ml-1">**** 9478</span>
+                                                                    </h6>
+                                                                    <span class="sub-text text-danger">Expired</span>
+                                                                </div>
+                                                            </div>
+                                                            <ul class="btn-toolbar justify-center gx-1 me-n1 flex-nowrap">
+                                                                <li>
+                                                                    <a href="#" class="btn btn-trigger btn-icon">
+                                                                        <em class="icon ni ni-edit"></em>
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#" class="btn btn-trigger btn-icon">
+                                                                        <em class="icon ni ni-trash"></em>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-12 col-xxl-6">
+                                                <button class="h-100 w-100 bg-white border border-dashed round-sm p-4 d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#add-card">
+                                                    <span class="text-soft">Add New Card</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="nk-block">
+                                        <h6 class="lead-text">Connect to Facebook</h6>
+                                        <div class="card card-bordered">
+                                            <div class="card-inner">
+                                                <div class="between-center flex-wrap flex-md-nowrap g-3">
+                                                    <div class="media media-center gx-3 wide-xs">
+                                                        <div class="media-object">
+                                                            <em class="icon icon-circle icon-circle-lg ni ni-facebook-f"></em>
+                                                        </div>
+                                                        <div class="media-content">
+                                                            <p>You have successfully connected with your facebook account, you can easily log in using your account too.</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="nk-block-actions flex-shrink-0">
+                                                        <a href="#" class="btn btn-lg btn-danger">Revoke Access</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h6 class="lead-text">Connect to Google</h6>
+                                        <div class="card card-bordered">
+                                            <div class="card-inner">
+                                                <div class="between-center flex-wrap flex-md-nowrap g-3">
+                                                    <div class="media media-center gx-3 wide-xs">
+                                                        <div class="media-object">
+                                                            <em class="icon icon-circle icon-circle-lg ni ni-google"></em>
+                                                        </div>
+                                                        <div class="media-content">
+                                                            <p>
+                                                                You can connect with your google account. <em class="d-block text-soft">Not connected yet</em>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="nk-block-actions flex-shrink-0">
+                                                        <a href="#" class="btn btn-lg btn-dim btn-primary">Connect</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="nk-block-head nk-block-head-sm">
+                                            <div class="nk-block-head-content">
+                                                <h6 class="nk-block-title">
+                                                    Import Contacts <a href="#" class="link link-primary ms-auto">Import from Google</a>
+                                                </h6>
+                                                <div class="nk-block-des">
+                                                    <p>You have not imported contacts from your mobile phone.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

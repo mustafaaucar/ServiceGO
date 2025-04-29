@@ -94,6 +94,7 @@ namespace BLL.Services
                 new Claim("AddPermission", manager.AddPermission.ToString()),
                 new Claim("UpdatePermission", manager.UpdatePermission.ToString()),
                 new Claim("DeletePermission", manager.DeletePermission.ToString()),
+                new Claim("ListPermission", manager.ListPermission.ToString()),
                 new Claim("CompanyID", manager.CompanyID.ToString())
             };
 

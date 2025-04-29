@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entity.Models
+namespace BLL.DTO
 {
-	public class Route : BaseEntity
-	{
-
+    public class RouteDto
+    {
+        public int Id { get; set; }
         public string RouteName { get; set; }
         public string StartCoordinats { get; set; }
         public string EndCoordinats { get; set; }
@@ -18,5 +18,8 @@ namespace Entity.Models
         public string Plate { get; set; }
         public int SeatNumber { get; set; }
         public string PricePerKM { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime ModifiedDate { get; set; } = DateTime.Now;
+        public bool IsActive { get; set; }
     }
 }

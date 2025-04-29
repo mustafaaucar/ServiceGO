@@ -30,10 +30,17 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IDriversService, DriversService>();
 builder.Services.AddScoped<IDriversRepository, DriversRepository>();
+
+
 builder.Services.AddScoped<IManagerRepository, ManagersRepository>();
 
 
 builder.Services.AddScoped<ICompanyDriversRepository, CompanyDriversRepository>();
+
+
+builder.Services.AddScoped<IRoutesRepository, RoutesRepository>();
+builder.Services.AddScoped<IRoutesService, RoutesService>();
+
 
 builder.Services.AddScoped<ICompaniesService, CompaniesService>();
 builder.Services.AddScoped<ICompaniesRepository, CompaniesRepository>();
@@ -109,8 +116,11 @@ app.MapControllerRoute(
     pattern: "drivers",
     defaults: new { controller = "Drivers", action = "Index" }
 );
-
-
+app.MapControllerRoute(
+    name: "DriverDetail",
+    pattern: "drivers/driver-details",
+    defaults: new { controller = "Drivers", action = "DriverDetail" }
+);
 
 
 

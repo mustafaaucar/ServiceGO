@@ -19,8 +19,10 @@ namespace BLL.AutoMapper
 
 
             CreateMap<Managers, ManagersDTO>();
-
             CreateMap<ManagersDTO, Managers>();
+
+			CreateMap<RouteDto, Route>();
+			CreateMap<Route, RouteDto>();
 
             CreateMap<Companies, CompaniesDTO>();
             CreateMap<CompaniesDTO, Companies>();

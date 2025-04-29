@@ -359,10 +359,18 @@
                                                             <div class="dropdown-menu dropdown-menu-end">
                                                                 <ul class="link-list-opt no-bdr">
                                                                     <li>
-                                                                        <a href="#">
-                                                                            <em class="icon ni ni-eye"></em>
-                                                                            <span>Detay Görüntüle</span>
-                                                                        </a>
+                                                                        <form asp-controller="drivers" asp-action="driverdetail" method="post" style="display:inline;" id="form-@item.Id">
+                                                                            <input type="hidden" name="driverId" value="@item.Id" />
+                                                                            <input type="hidden" name="name" value="@(item.Name + " " + item.Surname)" />
+                                                                            <a role="button" onclick="document.getElementById('form-@item.Id').submit(); return false;">
+                                                                                <em class="icon ni ni-eye"></em>
+                                                                                <span>Detay Görüntüle</span>
+                                                                            </a>
+                                                                        </form>
+                                                                    </li>
+                                                                    <li>
+
+                                                                        
                                                                     </li>
                                                                     <li>
                                                                         <a href="#">

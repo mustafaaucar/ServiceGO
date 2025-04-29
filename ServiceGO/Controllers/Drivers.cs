@@ -11,12 +11,13 @@ namespace ServiceGO.Controllers
     {
         private readonly ILogger<Drivers> _logger;
         private readonly IDriversService _driversService;
+        private readonly IRoutesService _routesService;
 
-        public Drivers(ILogger<Drivers> logger, IDriversService driversService)
+        public Drivers(ILogger<Drivers> logger, IDriversService driversService, IRoutesService routesService)
         {
             _logger = logger;
             _driversService = driversService;
-
+            _routesService = routesService;
         }
 
 
@@ -52,5 +53,24 @@ namespace ServiceGO.Controllers
             }
             return RedirectToAction("Index");
         }
+
+
+        [Authorize]
+        public async Task<IActionResult> DriverDetail(int driverID, string name)
+        {
+            DriverDetailsPageDTO details = new DriverDetailsPageDTO();
+            var listPermission = User.Claims.FirstOrDefault(c => c.Type == "ListPermission");
+            if (listPermission != null && Convert.ToBoolean(listPermission.Value) == true)
+            {
+                details.DriverInfo = await _driversService.GetDriverByIdAsync(driverID);
+                details.DriverRoutes = await _routesService.GetDriverRoutes(driverID);
+                return View(details);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
     }
 }
