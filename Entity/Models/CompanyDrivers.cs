@@ -12,5 +12,6 @@ namespace Entity.Models
         public int CompanyID { get; set; }
         public int DriverID { get; set; }
         public int? RouteID { get; set; }
+        public int? PaymentID { get; set; }
     }
 }

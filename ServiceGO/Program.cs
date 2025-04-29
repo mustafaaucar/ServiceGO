@@ -41,6 +41,8 @@ builder.Services.AddScoped<ICompanyDriversRepository, CompanyDriversRepository>(
 builder.Services.AddScoped<IRoutesRepository, RoutesRepository>();
 builder.Services.AddScoped<IRoutesService, RoutesService>();
 
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
 
 builder.Services.AddScoped<ICompaniesService, CompaniesService>();
 builder.Services.AddScoped<ICompaniesRepository, CompaniesRepository>();
