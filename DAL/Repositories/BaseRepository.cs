@@ -38,13 +38,14 @@ namespace DAL.BaseRepository
             }
         }
 
-		public void Update(T entity)
-		{
-			_dbSet.Update(entity);
-			_context.SaveChanges();
-		}
+        public async Task<T> UpdateAsync(T entity)
+        {
+            _dbSet.Update(entity);
+            await _context.SaveChangesAsync();
+            return entity;
+        }
 
-		public void Delete(T entity)
+        public void Delete(T entity)
 		{
 			_dbSet.Remove(entity);
 		}

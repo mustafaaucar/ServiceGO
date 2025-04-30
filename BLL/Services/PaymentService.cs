@@ -20,18 +20,33 @@ namespace BLL.Services
             _paymentRepository = paymentRepository;
             _mapper = mapper;
         }
+
+        public async Task<PaymentDTO> AddPaymentAsync(PaymentDTO model)
+        {
+           var newPayment = await _paymentRepository.AddAsync(_mapper.Map<Payment>(model));
+            return _mapper.Map<PaymentDTO>(newPayment);
+        }
+
         public async Task<List<PaymentDTO>> GetPayment(int driverID, int companyID)
         {
             var payments = await _paymentRepository.GetPayment(driverID, companyID);
             return _mapper.Map<List<PaymentDTO>>(payments);
         }
 
-        public void UpdateAsync(PaymentDTO model)
+        public async Task<PaymentDTO> UpdateAsync(PaymentDTO model)
         {
             if (model.Id != 0)
             {
-                _paymentRepository.Update(_mapper.Map<Payment>(model));
+                var updated = await _paymentRepository.UpdateAsync(_mapper.Map<Payment>(model));
+                return _mapper.Map<PaymentDTO>(updated);
+            }
+            else
+            {
+                PaymentDTO paymentDTO = new PaymentDTO();
+                return paymentDTO;
             }
         }
+
+   
     }
 }

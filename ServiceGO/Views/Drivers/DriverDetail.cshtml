@@ -199,6 +199,7 @@
                                                                            data-bank="@item.BankName"
                                                                            data-iban="@item.IBAN"
                                                                            data-cvv="@item.CVV"
+                                                                           data-driverid="@Model.DriverInfo.Id"
                                                                            data-date="@item.LastUsageDay">
                                                                             <em class="icon ni ni-edit"></em>
                                                                         </a>
@@ -292,6 +293,8 @@
             <div class="modal-body">
                 <form id="cardForm">
                     <input type="hidden" id="PaymentId" name="Id" />
+                    <input type="hidden" id="DriverID" name="DriverId" />
+                    <input type="hidden" id="CompanyID" name="CompanyID" />
                     <input type="hidden" id="FormMode" name="FormMode" value="add" />
 
                     <div class="mb-3">
@@ -321,6 +324,7 @@
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+        debugger;
         const modal = document.getElementById('add-card');
         const title = document.getElementById('addCardLabel');
         modal.addEventListener('show.bs.modal', function (event) {
@@ -331,9 +335,11 @@
             const iban = button.getAttribute('data-iban');
             const date = button.getAttribute('data-date');
             const cvv = button.getAttribute('data-cvv');
+            const driverID = @Model.DriverInfo.Id;
+            const companyId = button.getAttribute('data-companyId');
 
-            // Eğer edit değilse (Add butonu), inputları temizle
             if (!id) {
+                debugger;
                 title.innerText = "Yeni Ödeme Yöntemi Ekle";
                 modal.querySelector("#FormMode").value = 'add';
                 modal.querySelector("#PaymentId").value = '';
@@ -341,6 +347,7 @@
                 modal.querySelector("#IBAN").value = '';
                 modal.querySelector("#LastUsageDay").value = '';
                 modal.querySelector("#CVV").value = '';
+                modal.querySelector("#DriverID").value = driverID;
             } else {
                 title.innerText = "Ödeme Yöntemini Güncelle";
                 modal.querySelector("#FormMode").value = 'edit';
@@ -349,6 +356,8 @@
                 modal.querySelector("#IBAN").value = iban;
                 modal.querySelector("#LastUsageDay").value = date;
                 modal.querySelector("#CVV").value = cvv;
+                modal.querySelector("#DriverID").value = driverID;
+                modal.querySelector("#CompanyID").value = companyId;
             }
         });
 
@@ -356,7 +365,7 @@
             e.preventDefault(); 
             debugger;
             const mode = document.getElementById('FormMode').value;
-            const actionUrl = mode === 'edit' ? '/Payment/UpdatePayment' : '/Payments/Add';
+            const actionUrl = mode === 'edit' ? '/Payment/UpdatePayment' : '/Payment/AddPayment';
 
             const formData = new FormData(this);
 
@@ -369,11 +378,14 @@
                     bootstrap.Modal.getInstance(document.getElementById('add-card')).hide();
                     location.reload();
                 } else {
-                    alert("Bir hata oluştu.");
+                    response.text().then(text => {
+                        alert("Hata oluştu: " + response.status + " - " + text);
+                    });
                 }
             })
             .catch(error => {
                 console.error("Hata:", error);
+                alert("İstek atılamadı: " + error.message);
             });
         });
 

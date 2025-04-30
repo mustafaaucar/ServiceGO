@@ -157,7 +157,7 @@ namespace BLL.Services
 		public async Task UpdateDriverAsync(DriversDTO driverDto)
 		{
 			var driver = _mapper.Map<Drivers>(driverDto);
-			_driversRepository.Update(driver);
+			await _driversRepository.UpdateAsync(driver);
 		}
 
 		public async Task DeleteDriverAsync(int id)
