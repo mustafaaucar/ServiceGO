@@ -22,5 +22,11 @@ namespace BLL.DTO
         public bool IsActive { get; set; } = true;
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public DateTime ModifiedDate { get; set; } = DateTime.Now;
+        public string IBAN { get; set; }
+        public string BankName { get; set; }
+        public string LastUsageDay { get; set; }
+        public string CVV { get; set; }
+        public DateTime PaymentCreatedDate { get; set; } = DateTime.Now;
+        public DateTime PaymentModifiedDate { get; set; } = DateTime.Now;
     }
 }

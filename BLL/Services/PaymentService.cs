@@ -2,6 +2,7 @@
 using BLL.DTO;
 using BLL.Interfaces;
 using DAL.IRepositories;
+using Entity.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,14 @@ namespace BLL.Services
         {
             var payments = await _paymentRepository.GetPayment(driverID, companyID);
             return _mapper.Map<List<PaymentDTO>>(payments);
+        }
+
+        public void UpdateAsync(PaymentDTO model)
+        {
+            if (model.Id != 0)
+            {
+                _paymentRepository.Update(_mapper.Map<Payment>(model));
+            }
         }
     }
 }

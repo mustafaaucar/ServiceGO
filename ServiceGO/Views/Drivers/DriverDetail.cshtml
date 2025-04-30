@@ -193,7 +193,13 @@
                                                                 </div>
                                                                 <ul class="btn-toolbar justify-center gx-1 me-n1 flex-nowrap">
                                                                     <li>
-                                                                        <a href="#" class="btn btn-trigger btn-icon">
+                                                                        <a href="#" class="btn btn-trigger btn-icon edit-card"
+                                                                           data-bs-toggle="modal" data-bs-target="#add-card"
+                                                                           data-id="@item.Id"
+                                                                           data-bank="@item.BankName"
+                                                                           data-iban="@item.IBAN"
+                                                                           data-cvv="@item.CVV"
+                                                                           data-date="@item.LastUsageDay">
                                                                             <em class="icon ni ni-edit"></em>
                                                                         </a>
                                                                     </li>
@@ -276,3 +282,101 @@
     </div>
 </div>
 
+<div class="modal fade" id="add-card" tabindex="-1" aria-labelledby="addCardLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCardLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="cardForm">
+                    <input type="hidden" id="PaymentId" name="Id" />
+                    <input type="hidden" id="FormMode" name="FormMode" value="add" />
+
+                    <div class="mb-3">
+                        <label for="BankName" class="form-label">Bank Name</label>
+                        <input type="text" class="form-control" id="BankName" name="BankName" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="IBAN" class="form-label">IBAN</label>
+                        <input type="text" class="form-control" id="IBAN" name="IBAN" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="LastUsageDay" class="form-label">Last Usage Day</label>
+                        <input type="text" class="form-control" id="LastUsageDay" name="LastUsageDay" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="CVV" class="form-label">CVV</label>
+                        <input type="text" class="form-control" id="CVV" name="CVV" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary" form="cardForm">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const modal = document.getElementById('add-card');
+        const title = document.getElementById('addCardLabel');
+        modal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+
+            const id = button.getAttribute('data-id');
+            const bank = button.getAttribute('data-bank');
+            const iban = button.getAttribute('data-iban');
+            const date = button.getAttribute('data-date');
+            const cvv = button.getAttribute('data-cvv');
+
+            // Eğer edit değilse (Add butonu), inputları temizle
+            if (!id) {
+                title.innerText = "Yeni Ödeme Yöntemi Ekle";
+                modal.querySelector("#FormMode").value = 'add';
+                modal.querySelector("#PaymentId").value = '';
+                modal.querySelector("#BankName").value = '';
+                modal.querySelector("#IBAN").value = '';
+                modal.querySelector("#LastUsageDay").value = '';
+                modal.querySelector("#CVV").value = '';
+            } else {
+                title.innerText = "Ödeme Yöntemini Güncelle";
+                modal.querySelector("#FormMode").value = 'edit';
+                modal.querySelector("#PaymentId").value = id;
+                modal.querySelector("#BankName").value = bank;
+                modal.querySelector("#IBAN").value = iban;
+                modal.querySelector("#LastUsageDay").value = date;
+                modal.querySelector("#CVV").value = cvv;
+            }
+        });
+
+        document.getElementById('cardForm').addEventListener('submit', function (e) {
+            e.preventDefault(); 
+            debugger;
+            const mode = document.getElementById('FormMode').value;
+            const actionUrl = mode === 'edit' ? '/Payment/UpdatePayment' : '/Payments/Add';
+
+            const formData = new FormData(this);
+
+            fetch(actionUrl, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    bootstrap.Modal.getInstance(document.getElementById('add-card')).hide();
+                    location.reload();
+                } else {
+                    alert("Bir hata oluştu.");
+                }
+            })
+            .catch(error => {
+                console.error("Hata:", error);
+            });
+        });
+
+
+    });
+</script>

@@ -41,6 +41,7 @@ namespace DAL.BaseRepository
 		public void Update(T entity)
 		{
 			_dbSet.Update(entity);
+			_context.SaveChanges();
 		}
 
 		public void Delete(T entity)

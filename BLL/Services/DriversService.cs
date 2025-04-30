@@ -16,18 +16,17 @@ namespace BLL.Services
 	{
 		private readonly IDriversRepository _driversRepository;
 		private readonly ICompanyDriversRepository _companyDriversRepository;
+		private readonly IPaymentRepository  _paymentRepository;
 		private readonly IMapper _mapper;
 
-		public DriversService(IDriversRepository driversRepository, IMapper mapper, ICompanyDriversRepository companyDriversRepository)
+		public DriversService(IDriversRepository driversRepository, IMapper mapper, ICompanyDriversRepository companyDriversRepository, IPaymentRepository paymentRepository)
 		{
 			_driversRepository = driversRepository;
             _companyDriversRepository = companyDriversRepository;
+            _paymentRepository = paymentRepository;
 			_mapper = mapper;
 		}
 
-        public DriversService()
-        {
-        }
 
         public async Task<PagedResult<DriversDTO>> GetAllDriversByCompanyAsync(int companyID, int pageNumber, int pageSize)
         {
@@ -62,6 +61,12 @@ namespace BLL.Services
 		public async Task AddDriverAsync(CreateDriverDTO driverDto)
 		{
             DriversDTO model = new DriversDTO();
+            PaymentDTO payment = new PaymentDTO();
+
+
+
+
+
             if (driverDto.IdentityCardPhoto != null)
             {
                 var identityCardFile = driverDto.IdentityCardPhoto;
@@ -119,11 +124,24 @@ namespace BLL.Services
             {
                 var driver = _mapper.Map<Drivers>(model);
                 var newDriver = await _driversRepository.AddAsync(driver);
+
+                payment.CreatedDate = DateTime.Now;
+                payment.ModifiedDate = DateTime.Now;
+                payment.IsActive = true;
+                payment.BankName = driverDto.BankName;
+                payment.IBAN = driverDto.IBAN;
+                payment.CVV = driverDto.CVV;                
+                payment.LastUsageDay = driverDto.LastUsageDay;
+
+                var paymentEntity = await _paymentRepository.AddAsync(_mapper.Map<Payment>(payment));
+
+
                 CompanyDrivers drivers = new CompanyDrivers
                 {
                     DriverID = newDriver.Id,
                     CompanyID = driverDto.CompanyID,
-                    RouteID = null // güzergah atamıyorsan null ver
+                    RouteID = null,
+                    PaymentID = paymentEntity.Id,
                 };
                 await _companyDriversRepository.AddAsync(drivers);
             }

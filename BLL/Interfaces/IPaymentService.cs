@@ -10,5 +10,6 @@ namespace BLL.Interfaces
     public interface IPaymentService
     {
         Task<List<PaymentDTO>> GetPayment(int driverID, int companyID);
+        void UpdateAsync(PaymentDTO model);
     }
 }

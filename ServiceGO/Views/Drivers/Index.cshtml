@@ -444,7 +444,7 @@
 
 
 
-<div class="modal fade" id="addDriverModal" tabindex="-1" aria-labelledby="addDriverModalLabel" aria-hidden="true">
+<div class="modal modal-xl fade" id="addDriverModal" tabindex="-1" aria-labelledby="addDriverModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -453,42 +453,66 @@
             </div>
             <div class="modal-body">
                 <form id="addDriverForm" method="post" action="@Url.Action("Create", "Drivers")" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label for="Name" class="form-label">İsim</label>
-                        <input type="text" class="form-control" id="Name" name="Name" required>
+                    <div class="col-12 d-flex">
+                        <div class="col-6" style="border-right:groove;padding-right:20px">
+                            <div class="mb-3">
+                                <label for="Name" class="form-label">İsim</label>
+                                <input type="text" class="form-control" id="Name" name="Name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="Surname" class="form-label">Soyisim</label>
+                                <input type="text" class="form-control" id="Surname" name="Surname" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="Birthdate" class="form-label">Doğum Tarihi</label>
+                                <input type="datetime" class="form-control" id="Birthdate" name="Birthdate" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="CitizenshipNumber" class="form-label">TC Kimlik No</label>
+                                <input type="text" class="form-control" id="CitizenshipNumber" name="CitizenshipNumber" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="Email" class="form-label">E-mail Adresi</label>
+                                <input type="email" class="form-control" id="Email" name="Email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="PhoneNumber" class="form-label">Telefon Numarası</label>
+                                <input type="text" class="form-control" id="PhoneNumber" name="PhoneNumber" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="Adress" class="form-label">Adres</label>
+                                <input type="text" class="form-control" id="Adress" name="Adress" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="IdentityCardPhoto" class="form-label">Kimlik Kartı (Arkalı Önlü)</label>
+                                <input type="file" class="form-control" id="IdentityCardPhoto" name="IdentityCardPhoto" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="DriverCardPhoto" class="form-label">Ehliyet Kartı (Arkalı Önlü)</label>
+                                <input type="file" class="form-control" id="DriverCardPhoto" name="DriverCardPhoto" required>
+                            </div>
+
+                        </div>
+                        <div class="col-6" style="padding-left:20px">
+                            <div class="mb-3">
+                                <label for="IBAN" class="form-label">IBAN Numarası</label>
+                                <input type="text" class="form-control" id="IBAN" name="IBAN" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="BankName" class="form-label">Banka Adı</label>
+                                <input type="text" class="form-control" id="BankName" name="BankName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="LastUsageDay" class="form-label">Son Kullanma Tarihi</label>
+                                <input type="text" class="form-control" id="LastUsageDay" name="LastUsageDay" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="CVV" class="form-label">CVV</label>
+                                <input type="text" class="form-control" id="CVV" name="CVV" required>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="Surname" class="form-label">Soyisim</label>
-                        <input type="text" class="form-control" id="Surname" name="Surname" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="Birthdate" class="form-label">Doğum Tarihi</label>
-                        <input type="datetime" class="form-control" id="Birthdate" name="Birthdate" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="CitizenshipNumber" class="form-label">TC Kimlik No</label>
-                        <input type="text" class="form-control" id="CitizenshipNumber" name="CitizenshipNumber" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="Email" class="form-label">E-mail Adresi</label>
-                        <input type="email" class="form-control" id="Email" name="Email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="PhoneNumber" class="form-label">Telefon Numarası</label>
-                        <input type="text" class="form-control" id="PhoneNumber" name="PhoneNumber" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="Adress" class="form-label">Adres</label>
-                        <input type="text" class="form-control" id="Adress" name="Adress" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="IdentityCardPhoto" class="form-label">Kimlik Kartı (Arkalı Önlü)</label>
-                        <input type="file" class="form-control" id="IdentityCardPhoto" name="IdentityCardPhoto" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="DriverCardPhoto" class="form-label">Ehliyet Kartı (Arkalı Önlü)</label>
-                        <input type="file" class="form-control" id="DriverCardPhoto" name="DriverCardPhoto" required>
-                    </div>
+              
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
                         <button type="submit" class="btn btn-primary">Kaydet</button>

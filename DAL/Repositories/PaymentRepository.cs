@@ -24,7 +24,7 @@ namespace DAL.Repositories
             try
             {
                 var payment = await (from cd in _context.CompanyDrivers
-                                     join p in _context.Payment on cd.DriverID equals p.Id
+                                     join p in _context.Payment on cd.PaymentID equals p.Id
                                      where cd.DriverID == driverID && cd.CompanyID == companyID
                                      select p).ToListAsync();
                 return payment;

@@ -8,7 +8,7 @@ namespace Entity.Models
 {
     public class Payment : BaseEntity
     {
-        public int IBAN { get; set; }
+        public string IBAN { get; set; }
         public string BankName { get; set; }
         public string LastUsageDay { get; set; }
         public string CVV { get; set; }

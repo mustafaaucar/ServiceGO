@@ -26,7 +26,6 @@ namespace ServiceGO.Controllers
         [Authorize]
         public IActionResult Index(int companyID)
 		{
-            
             return View();
         }
         [HttpGet]
