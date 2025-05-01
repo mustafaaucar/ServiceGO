@@ -123,7 +123,11 @@ app.MapControllerRoute(
     pattern: "drivers/driver-details",
     defaults: new { controller = "Drivers", action = "DriverDetail" }
 );
-
+app.MapControllerRoute(
+    name: "RouteIndex",
+    pattern: "routes",
+    defaults: new { controller = "Route", action = "Index" }
+);
 
 
 app.MapControllerRoute(

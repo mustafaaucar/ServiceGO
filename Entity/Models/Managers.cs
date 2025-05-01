@@ -10,10 +10,15 @@ namespace Entity.Models
     {
         public string ManagerName { get; set; }
         public string ManagerSurname { get; set; }
+
         public string ManagerEmail { get; set; }
         public string ManagerTel { get; set; }
+
         public string Password { get; set; }
+
         public int CompanyID { get; set; }
+        public Companies Company { get; set; }
+
         public bool AddPermission { get; set; }
         public bool UpdatePermission { get; set; }
         public bool DeletePermission { get; set; }

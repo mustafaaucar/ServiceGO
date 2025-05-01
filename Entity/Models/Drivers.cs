@@ -10,7 +10,7 @@ namespace Entity.Models
 	{
         public string Name { get; set; }
         public string Surname { get; set; }
-		public DateTime Birthdate { get; set; }
+        public DateTime Birthdate { get; set; }
         public string CitizenshipNumber { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }

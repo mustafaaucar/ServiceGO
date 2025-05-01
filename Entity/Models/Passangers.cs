@@ -12,9 +12,11 @@ namespace Entity.Models
         public string Surname { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
-        public string Adress { get; set; }
+        public string Address { get; set; }
+        public double Latitude { get; set; } 
+        public double Longitude { get; set; }
         public string CitizenNumber { get; set; }
-        public string Coordinats { get; set; }
-        public int? RouteID { get; set; }
+        public int RouteId { get; set; }
+        public Route Route { get; set; }
     }
 }
