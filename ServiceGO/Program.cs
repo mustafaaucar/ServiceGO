@@ -47,6 +47,9 @@ builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<ICompaniesService, CompaniesService>();
 builder.Services.AddScoped<ICompaniesRepository, CompaniesRepository>();
 
+builder.Services.AddScoped<IPassangerRepository, PassangersRepository>();
+builder.Services.AddScoped<IPassangerService, PassangerService>();
+
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 // Add services to the container.
@@ -127,6 +130,11 @@ app.MapControllerRoute(
     name: "RouteIndex",
     pattern: "routes",
     defaults: new { controller = "Route", action = "Index" }
+);
+app.MapControllerRoute(
+    name: "RouteIndex",
+    pattern: "passangers",
+    defaults: new { controller = "Passanger", action = "Index" }
 );
 
 
