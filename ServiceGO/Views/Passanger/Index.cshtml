@@ -11,7 +11,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Güzergahlar</h3>
+                            <h3 class="nk-block-title page-title">Yolcular</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -55,9 +55,9 @@
                                             <a href="#" data-target="addProduct" class="toggle btn btn-icon btn-primary d-md-none">
                                                 <em class="icon ni ni-plus"></em>
                                             </a>
-                                            <a href="#" data-target="addProduct" class="toggle btn btn-primary d-none d-md-inline-flex">
+                                            <a href="#" class="btn btn-primary d-none d-md-inline-flex" data-bs-toggle="modal" data-bs-target="#addPassengerModal">
                                                 <em class="icon ni ni-plus"></em>
-                                                <span>Yeni Güzergah Oluştur</span>
+                                                <span>Yeni Yolcu Ekle</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -1023,3 +1023,145 @@
     </div>
 </div>
 
+
+
+<div class="modal fade" id="addPassengerModal" tabindex="-1" aria-labelledby="addPassengerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addPassengerModalLabel">Yeni Yolcu Ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addPassengerForm" method="post" action="@Url.Action("CreatePassanger","Passanger")">
+                    <div class="mb-3">
+                        <label class="form-label">Ad</label>
+                        <input type="text" name="Name" class="form-control" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Soyad</label>
+                        <input type="text" name="Surname" class="form-control" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">İl</label>
+                        <select id="il" class="form-select" required>
+                            <option value="">İl Seçiniz</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">İlçe</label>
+                        <select id="ilce" class="form-select" required disabled>
+                            <option value="">İlçe Seçiniz</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Mahalle</label>
+                        <select id="mahalle" class="form-select" required disabled>
+                            <option value="">Mahalle Seçiniz</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Sokak</label>
+                        <input type="text" id="sokak" class="form-control" placeholder="Sokak adı girin" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Bina No</label>
+                        <input type="text" id="bina" class="form-control" placeholder="Bina numarası" required />
+                    </div>
+
+                    <input type="hidden" name="Address" id="Address" />
+
+                    <div class="mb-3">
+                        <label class="form-label">Telefon</label>
+                        <input type="text" name="PhoneNumber" class="form-control" required />
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const API_BASE = "https://turkiyeapi.dev/api/v1";
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const ilSelect = document.getElementById("il");
+        const ilceSelect = document.getElementById("ilce");
+        const mahalleSelect = document.getElementById("mahalle");
+
+        // İl yükle
+        fetch(`${API_BASE}/provinces`)
+            .then(res => res.json())
+            .then(data => {
+                data.data.forEach(il => {
+                    const option = new Option(il.name, il.id);
+                    ilSelect.appendChild(option);
+                });
+            });
+
+        // İlçe yükle
+        ilSelect.addEventListener("change", function () {
+            debugger;
+            const ilId = this.value;
+            ilceSelect.innerHTML = '<option value="">İlçe Seçiniz</option>';
+            mahalleSelect.innerHTML = '<option value="">Mahalle Seçiniz</option>';
+            ilceSelect.disabled = true;
+            mahalleSelect.disabled = true;
+
+            if (!ilId) return;
+
+            fetch(`${API_BASE}/districts?provinceId=${ilId}`)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    data.data.forEach(ilce => {
+                      
+                        const option = new Option(ilce.name, ilce.id);
+                        ilceSelect.appendChild(option);
+                    });
+                    ilceSelect.disabled = false;
+                });
+        });
+
+        // Mahalle yükle
+        ilceSelect.addEventListener("change", function () {
+            const ilceId = this.value;
+            mahalleSelect.innerHTML = '<option value="">Mahalle Seçiniz</option>';
+            mahalleSelect.disabled = true;
+
+            if (!ilceId) return;
+
+            fetch(`${API_BASE}/neighborhoods?districtId=${ilceId}`)
+                .then(res => res.json())
+                .then(data => {
+                    data.data.forEach(mahalle => {
+                        const option = new Option(mahalle.name, mahalle.name);
+                        mahalleSelect.appendChild(option);
+                    });
+                    mahalleSelect.disabled = false;
+                });
+        });
+
+        // Form submit öncesi adres birleştirme
+        const form = document.getElementById("addPassengerForm");
+        form.addEventListener("submit", function (e) {
+            const il = ilSelect.options[ilSelect.selectedIndex].text;
+            const ilce = ilceSelect.options[ilceSelect.selectedIndex].text;
+            const mahalle = mahalleSelect.options[mahalleSelect.selectedIndex].text;
+            const sokak = document.getElementById("sokak").value;
+            const bina = document.getElementById("bina").value;
+
+            const fullAddress = `${mahalle}, ${sokak} Sokak, No: ${bina}, ${ilce} / ${il}`;
+            document.getElementById("Address").value = fullAddress;
+        });
+    });
+</script>

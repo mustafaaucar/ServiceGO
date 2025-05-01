@@ -14,9 +14,7 @@ namespace BLL.AutoMapper
 		public MappingProfile()
 		{
 			CreateMap<Drivers, DriversDTO>();
-
 			CreateMap<DriversDTO, Drivers>();
-
 
             CreateMap<Managers, ManagersDTO>();
             CreateMap<ManagersDTO, Managers>();
@@ -32,6 +30,10 @@ namespace BLL.AutoMapper
 
             CreateMap<Payment, PaymentDTO>();
             CreateMap<PaymentDTO, Payment>();
+
+			CreateMap<Passangers, PassangersDTO>();
+            CreateMap<PassangersDTO, Passangers>();
+
         }
 	}
 }

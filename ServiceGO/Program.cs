@@ -52,6 +52,7 @@ builder.Services.AddScoped<IPassangerService, PassangerService>();
 
 
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddHttpClient<IGeocodingService, SmartGeocodingService>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

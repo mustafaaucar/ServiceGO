@@ -16,6 +16,9 @@ namespace Entity.Models
         public double Latitude { get; set; } 
         public double Longitude { get; set; }
         public string CitizenNumber { get; set; }
+        public double? PickupLatitude { get; set; }
+        public double? PickupLongitude { get; set; }
+        public int WalkingDistanceInMeters { get; set; }
         public int RouteId { get; set; }
         public Route Route { get; set; }
     }

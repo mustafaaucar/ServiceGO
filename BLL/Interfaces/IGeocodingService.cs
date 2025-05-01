@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace BLL.Interfaces
 {
-    public interface IPassangerService
+    public interface IGeocodingService
     {
-        Task AddPassangersAsync(PassangersDTO model);
-        Task<IEnumerable<PassangersDTO>> GetCompanyPassangers(int companyID);
+        Task<(double Latitude, double Longitude)> GetCoordinatesAsync(string address);
+
+    
     }
 }
