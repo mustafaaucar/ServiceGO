@@ -77,5 +77,18 @@ namespace ServiceGO.Controllers
             }
         }
 
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Delete(int driverId)
+        {
+            var deletePermission = User.Claims.FirstOrDefault(c => c.Type == "DeletePermission");
+            if (deletePermission != null && Convert.ToBoolean(deletePermission.Value) == true)
+            {
+               await _driversService.DeleteDriverAsync(driverId);
+            }
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

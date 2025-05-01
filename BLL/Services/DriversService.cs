@@ -165,7 +165,8 @@ namespace BLL.Services
 			var driver = await _driversRepository.GetByIdAsync(id);
 			if (driver != null)
 			{
-				_driversRepository.Delete(driver);
+                driver.IsActive = false;
+				await _driversRepository.UpdateAsync(driver);
 			}
 		}
 

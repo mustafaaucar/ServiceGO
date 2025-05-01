@@ -47,8 +47,8 @@ namespace DAL.BaseRepository
 
         public void Delete(T entity)
 		{
-			_dbSet.Remove(entity);
-		}
+            _dbSet.Remove(entity);
+        }
 
 		public async Task SaveAsync()
 		{
