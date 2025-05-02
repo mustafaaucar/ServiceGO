@@ -94,8 +94,9 @@
                                         <div class="nk-tb-col tb-col-md">
                                             <span>Güzergahı</span>
                                         </div>
-                                       
-                        
+
+                                        <div class="nk-tb-col tb-col-md">
+                                        </div>
                                     </div>
                                     @foreach (var item in Model.Passangers)
                                     {
@@ -124,14 +125,7 @@
                                             <div class="nk-tb-col tb-col-md">
                                                 <span class="tb-sub">@Model.Routes.Where(x => x.Id == item.RouteId).FirstOrDefault()?.RouteName</span>
                                             </div>
-                                            <div class="nk-tb-col tb-col-md">
-                                                <div class="asterisk tb-asterisk">
-                                                    <a href="#">
-                                                        <em class="asterisk-off icon ni ni-star"></em>
-                                                        <em class="asterisk-on icon ni ni-star-fill"></em>
-                                                    </a>
-                                                </div>
-                                            </div>
+                                           
                                             <div class="nk-tb-col nk-tb-col-tools">
                                                 <ul class="nk-tb-actions gx-1 my-n1">
                                                     <li class="me-n1">
@@ -177,7 +171,7 @@
                                 
                                 </div>
                             </div>
-                            <div class="card-inner">
+                            @* <div class="card-inner">
                                 <div class="nk-block-between-md g-3">
                                     <div class="g">
                                         <ul class="pagination justify-content-center justify-content-md-start">
@@ -210,37 +204,8 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="g">
-                                        <div class="pagination-goto d-flex justify-content-center justify-content-md-start gx-3">
-                                            <div>Page</div>
-                                            <div>
-                                                <select class="form-select js-select2" data-search="on" data-dropdown="xs center">
-                                                    <option value="page-1">1</option>
-                                                    <option value="page-2">2</option>
-                                                    <option value="page-4">4</option>
-                                                    <option value="page-5">5</option>
-                                                    <option value="page-6">6</option>
-                                                    <option value="page-7">7</option>
-                                                    <option value="page-8">8</option>
-                                                    <option value="page-9">9</option>
-                                                    <option value="page-10">10</option>
-                                                    <option value="page-11">11</option>
-                                                    <option value="page-12">12</option>
-                                                    <option value="page-13">13</option>
-                                                    <option value="page-14">14</option>
-                                                    <option value="page-15">15</option>
-                                                    <option value="page-16">16</option>
-                                                    <option value="page-17">17</option>
-                                                    <option value="page-18">18</option>
-                                                    <option value="page-19">19</option>
-                                                    <option value="page-20">20</option>
-                                                </select>
-                                            </div>
-                                            <div>OF 102</div>
-                                        </div>
-                                    </div>
                                 </div>
-                            </div>
+                            </div> *@
                         </div>
                     </div>
                 </div>
@@ -401,7 +366,7 @@
                         <select id="RouteId" name="RouteId" class="form-select" required >
                             @foreach (var item in Model.Routes)
                             {
-                                <option value="@item.Id">@item.RouteName - @(Model.Passangers.Where(x => x.RouteId == item.Id).Count())/@item.SeatNumber</option>
+                                <option value="@item.Id" disabled="@(Model.Passangers.Where(x => x.RouteId == item.Id).Count() >= item.SeatNumber ? true : false)">@item.RouteName - @(Model.Passangers.Where(x => x.RouteId == item.Id).Count())/@item.SeatNumber</option>
                             }
                         </select>
                     </div>
