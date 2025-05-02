@@ -5,14 +5,14 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-
+using GoogleMaps.LocationServices;
 namespace BLL.Services
 {
-    public class GoogleGeocodingService : IGeocodingService
+    public class SmartGeocodingService : IGeocodingService
     {
         private readonly HttpClient _httpClient;
 
-        public GoogleGeocodingService(HttpClient httpClient)
+        public SmartGeocodingService(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
@@ -20,9 +20,11 @@ namespace BLL.Services
         public async Task<(double Latitude, double Longitude)> GetCoordinatesAsync(string address)
         {
             var encodedAddress = WebUtility.UrlEncode(address);
-            
-            double latitude = 0;
-            double longitude = 0;
+
+            var locationService = new GoogleLocationService();
+            var point = locationService.GetLatLongFromAddress(address);
+            var latitude = point.Latitude;
+            var longitude = point.Longitude;
 
             return (latitude, longitude);
 

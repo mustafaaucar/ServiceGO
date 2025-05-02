@@ -1038,7 +1038,8 @@
                         <label class="form-label">Ad</label>
                         <input type="text" name="Name" class="form-control" required />
                     </div>
-
+                    <input type="hidden" name="Latitude" id="Latitude" />
+                    <input type="hidden" name="Longitude" id="Longitude" />
                     <div class="mb-3">
                         <label class="form-label">Soyad</label>
                         <input type="text" name="Surname" class="form-control" required />
@@ -1085,11 +1086,16 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
                     </div>
                 </form>
+                <div class="mb-3">
+                    <label class="form-label">Konum Seç (Harita)</label>
+                    <div id="map" style="height: 400px;"></div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 <script>
     const API_BASE = "https://turkiyeapi.dev/api/v1";
 
@@ -1163,5 +1169,30 @@
             const fullAddress = `${mahalle}, ${sokak} Sokak, No: ${bina}, ${ilce} / ${il}`;
             document.getElementById("Address").value = fullAddress;
         });
+
+            var map = L.map('map').setView([39.92077, 32.85411], 6); // Türkiye merkezi
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '© OpenStreetMap Katkıcıları'
+    }).addTo(map);
+
+    var marker;
+
+    map.on('click', function (e) {
+        var lat = e.latlng.lat.toFixed(6);
+        var lng = e.latlng.lng.toFixed(6);
+
+        // Marker ekle veya taşı
+        if (marker) {
+            marker.setLatLng(e.latlng);
+        } else {
+            marker = L.marker(e.latlng).addTo(map);
+        }
+
+        // Form alanlarına yaz
+        document.getElementById("Latitude").value = lat;
+        document.getElementById("Longitude").value = lng;
+    });
     });
 </script>
