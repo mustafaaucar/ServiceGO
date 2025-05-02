@@ -9,7 +9,7 @@ namespace BLL.Interfaces
 {
     public interface IGeocodingService
     {
-        Task<(double Latitude, double Longitude)> GetCoordinatesAsync(string address);
+    
 
     
     }

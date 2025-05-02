@@ -9,6 +9,7 @@ namespace BLL.Interfaces
 {
     public interface IRoutesService
     {
-        Task<List<RouteDto>> GetDriverRoutes(int driverID); 
+        Task<List<RouteDto>> GetDriverRoutes(int driverID);
+        Task<List<RouteDto>> GetCompanyRoutes(int companyID);
     }
 }

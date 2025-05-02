@@ -10,5 +10,6 @@ namespace DAL.IRepositories
 {
     public interface IPassangerRepository : IBaseRepository<Passangers>
     {
+        Task<List<Passangers>> GetCompanyPassangers(int companyID);
     }
 }

@@ -11,6 +11,6 @@ namespace DAL.IRepositories
     public interface IRoutesRepository : IBaseRepository<Route>
     {
         Task<List<Route>> GetDriverRoutes(int driverID);
-
+        Task<List<Route>> GetCompanyRoutes(int companyID);
     }
 }

@@ -19,6 +19,16 @@ namespace DAL.Repositories
             _context = context;
         }
 
+        public async Task<List<Route>> GetCompanyRoutes(int companyID)
+        {
+            var routeList = await(from r in _context.Routes 
+                                      join cd in _context.CompanyDrivers on r.Id equals cd.RouteID
+                                      join c in _context.Companies on cd.CompanyID equals c.Id
+                                      where c.Id == companyID
+                                      select r).ToListAsync();
+            return routeList;
+        }
+
         public async Task<List<Route>> GetDriverRoutes(int driverID)
         {
             try

@@ -17,17 +17,6 @@ namespace BLL.Services
             _httpClient = httpClient;
         }
 
-        public async Task<(double Latitude, double Longitude)> GetCoordinatesAsync(string address)
-        {
-            var encodedAddress = WebUtility.UrlEncode(address);
-
-            var locationService = new GoogleLocationService();
-            var point = locationService.GetLatLongFromAddress(address);
-            var latitude = point.Latitude;
-            var longitude = point.Longitude;
-
-            return (latitude, longitude);
-
-        }
+       
     }
 }

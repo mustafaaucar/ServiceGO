@@ -19,7 +19,7 @@ namespace Entity.Models
         public double? PickupLatitude { get; set; }
         public double? PickupLongitude { get; set; }
         public int WalkingDistanceInMeters { get; set; }
-        public int RouteId { get; set; }
-        public Route Route { get; set; }
+        public int? RouteId { get; set; }
+        public Route? Route { get; set; }
     }
 }

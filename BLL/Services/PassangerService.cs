@@ -27,15 +27,18 @@ namespace BLL.Services
 
         public async Task AddPassangersAsync(PassangersDTO model)
         {
-            var (lat, lon) = await _geocodingService.GetCoordinatesAsync(model.Address);
-            model.Latitude = lat;
-            model.Longitude = lon;
+            model.IsActive = true;
+            if (model.RouteId == 0)
+            {
+                model.RouteId = null;
+            }
             await _pRepository.AddAsync(_mapper.Map<Passangers>(model));
         }
 
-        public Task<IEnumerable<PassangersDTO>> GetCompanyPassangers(int companyID)
+        public async Task<IEnumerable<PassangersDTO>> GetCompanyPassangers(int companyID)
         {
-            throw new NotImplementedException();
+            var passangerList = await _pRepository.GetCompanyPassangers(companyID);
+            return _mapper.Map<List<PassangersDTO>>(passangerList);
         }
     }
 }
