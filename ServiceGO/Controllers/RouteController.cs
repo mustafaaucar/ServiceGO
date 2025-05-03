@@ -32,5 +32,10 @@ namespace ServiceGO.Controllers
                 return Redirect("/Home/Login");
             }
         }
+        [Authorize]
+        public async Task<IActionResult> CreateRoute(CreateRouteDTO model)
+        {
+            return Ok();
+        }
     }
 }

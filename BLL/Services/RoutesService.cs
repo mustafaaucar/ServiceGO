@@ -32,5 +32,10 @@ namespace BLL.Services
             var routes = await _routesRepository.GetDriverRoutes(driverID);
             return _mapper.Map<List<RouteDto>>(routes);
         }
+
+        public async Task<bool> CreateRoute(int companyID)
+        {
+            return true;
+        }
     }
 }

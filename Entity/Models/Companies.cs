@@ -11,6 +11,7 @@ namespace Entity.Models
         public string CompanyName { get; set; }
         public string CompanyTel { get; set; }
         public string CompanyEmail { get; set; }
-
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }
