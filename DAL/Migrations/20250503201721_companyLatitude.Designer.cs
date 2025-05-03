@@ -4,6 +4,7 @@ using DAL.ApplicationDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250503201721_companyLatitude")]
+    partial class companyLatitude
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -276,9 +279,6 @@ namespace DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("UseAlternatePickup")
-                        .HasColumnType("bit");
-
                     b.Property<int>("WalkingDistanceInMeters")
                         .HasColumnType("int");
 
@@ -372,9 +372,6 @@ namespace DAL.Migrations
                     b.Property<string>("RouteName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("RouteType")
-                        .HasColumnType("bit");
 
                     b.Property<int>("SeatNumber")
                         .HasColumnType("int");

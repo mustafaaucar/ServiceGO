@@ -15,6 +15,7 @@ namespace BLL.DTO
         public double StartLongitude { get; set; }
         public double EndLatitude { get; set; }
         public double EndLongitude { get; set; }
+        public bool RouteType { get; set; }
         public TimeSpan MorningStartTime { get; set; }
         public TimeSpan EveningStartTime { get; set; }
         public double CurrentLatitude { get; set; }

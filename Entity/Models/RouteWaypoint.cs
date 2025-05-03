@@ -15,6 +15,6 @@ namespace Entity.Models
         public double Latitude { get; set; }
         public double Longitude { get; set; }
 
-        public int StopOrder { get; set; } // Durak sırası
+        public int StopOrder { get; set; } 
     }
 }

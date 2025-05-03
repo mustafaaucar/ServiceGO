@@ -1,5 +1,5 @@
 ﻿@using BLL.DTO
-@model List<RouteDto>
+@model RouteIndexDTO
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -945,7 +945,7 @@
 <div class="modal fade" id="addRouteModal" tabindex="-1" aria-labelledby="addRouteModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form id="routeForm" method="post">
+            <form id="routeForm" method="post" action="@Url.Action("CreateRoute","Route")">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addRouteModalLabel">Yeni Güzergah Oluştur</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
@@ -961,30 +961,44 @@
                             <input type="text" name="Plate" class="form-control" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Başlangıç Koordinatları (Lat,Lon)</label>
-                            <input type="text" name="StartCoordinats" class="form-control" placeholder="41.123, 29.123" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Bitiş Koordinatları (Lat,Lon)</label>
-                            <input type="text" name="EndCoordinats" class="form-control" placeholder="41.321, 29.321" required>
-                        </div>
-                        <div class="col-md-6">
                             <label class="form-label">Sabah Başlangıç Saati</label>
-                            <input type="time" name="MorningStartHour" class="form-control" required>
+                            <input type="time" name="MorningStartTime" class="form-control" required>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Akşam Başlangıç Saati</label>
-                            <input type="time" name="EveningStartHour" class="form-control" required>
+                            <input type="time" name="EveningStartTime" class="form-control" required>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Koltuk Sayısı</label>
                             <input type="number" name="SeatNumber" class="form-control" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">KM Başına Ücret</label>
-                            <input type="number" step="0.01" name="PricePerKM" class="form-control" required>
+                            <label class="form-label d-block">Servis Yönü (Route Type)</label>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="RouteType" id="routeTypeGelis" value="true" required>
+                                <label class="form-check-label" for="routeTypeGelis">Geliş (Ev → İş)</label>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="RouteType" id="routeTypeGidis" value="false">
+                                <label class="form-check-label" for="routeTypeGidis">Gidiş (İş → Ev)</label>
+                            </div>
                         </div>
-                        <!-- CurrentLocation ve Passengers dışarıdan alınmayacak -->
+                        <div class="col-md-6">
+                            <label class="form-label">Şoför Seçiniz</label>
+                            <select class ="form-control" name="driverId">
+                                @foreach (var item in Model.Drivers)
+                                {
+                                    <option value="@item.Id">@item.Name @item.Surname</option>
+                                }
+                                
+                            </select>   
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">KM Başına Ücret</label>
+                            <input type="number" step="0.01" name="PricePerKm" class="form-control" required>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

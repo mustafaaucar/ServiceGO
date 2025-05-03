@@ -28,26 +28,23 @@ namespace BLL.Services
 		}
 
 
-        public async Task<PagedResult<DriversDTO>> GetAllDriversByCompanyAsync(int companyID, int pageNumber, int pageSize)
+        public async Task<PagedResult<DriversDTO>> GetAllDriversByCompanyAsync(int companyID)
         {
             try
             {
                 var drivers = await _driversRepository.GetCompanyDrivers(companyID);
 
                 var totalCount = drivers.Count();
-                var pagedDrivers = drivers
-                    .Skip((pageNumber - 1) * pageSize)
-                    .Take(pageSize)
-                    .ToList();
+                var pagedDrivers = drivers.ToList();
 
                 var pagedDriversDto = _mapper.Map<List<DriversDTO>>(pagedDrivers);
 
-                return new PagedResult<DriversDTO>(pagedDriversDto, totalCount, pageNumber);
+                return new PagedResult<DriversDTO>(pagedDriversDto, totalCount);
             }
             catch (Exception)
             {
                 var emptyList = new List<DriversDTO>();
-                return new PagedResult<DriversDTO>(emptyList, 0, pageNumber);
+                return new PagedResult<DriversDTO>(emptyList, 0);
             }
             
         }

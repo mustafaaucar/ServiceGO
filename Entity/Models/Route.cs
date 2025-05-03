@@ -18,6 +18,7 @@ namespace Entity.Models
         public TimeSpan EveningStartTime { get; set; }
         public double CurrentLatitude { get; set; }
         public double CurrentLongitude { get; set; }
+        public bool RouteType { get; set; } // true = işe gidiş / false = işten geliş
         public string Plate { get; set; }
         public int SeatNumber { get; set; }
         public decimal PricePerKm { get; set; }

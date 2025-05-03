@@ -10,7 +10,7 @@ namespace BLL.Interfaces
 	public interface IDriversService
 	{
 		Task<IEnumerable<DriversDTO>> GetAllDriversAsync();
-		Task<PagedResult<DriversDTO>> GetAllDriversByCompanyAsync(int companyID, int pageNumber, int pageSize);
+		Task<PagedResult<DriversDTO>> GetAllDriversByCompanyAsync(int companyID);
 
 		Task<DriversDTO> GetDriverByIdAsync(int id);
 

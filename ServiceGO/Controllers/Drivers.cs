@@ -36,7 +36,7 @@ namespace ServiceGO.Controllers
 
             int companyID = int.Parse(companyIdClaim.Value);
 
-            var drivers = await _driversService.GetAllDriversByCompanyAsync(companyID, 0 , 50);
+            var drivers = await _driversService.GetAllDriversByCompanyAsync(companyID);
             return View(drivers);
         }
 
