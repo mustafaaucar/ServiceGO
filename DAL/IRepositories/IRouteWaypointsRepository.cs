@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace DAL.IRepositories
 {
-    public interface IManagerRepository : IBaseRepository<Managers>
+    public interface IRouteWaypointsRepository : IBaseRepository<RouteWaypoint>
     {
-        Task<Companies> GetManagersCompany(int managerID);
+        Task<bool> DeleteByRouteIdAsync(int id);
+        Task<bool> AddRangeAsync(List<RouteWaypoint> entity);
     }
 }

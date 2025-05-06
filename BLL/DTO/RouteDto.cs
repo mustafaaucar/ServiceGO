@@ -11,15 +11,15 @@ namespace BLL.DTO
     {
         public int Id { get; set; }
         public string RouteName { get; set; }
-        public double StartLatitude { get; set; }
-        public double StartLongitude { get; set; }
-        public double EndLatitude { get; set; }
-        public double EndLongitude { get; set; }
+        public decimal StartLatitude { get; set; }
+        public decimal StartLongitude { get; set; }
+        public decimal EndLatitude { get; set; }
+        public decimal EndLongitude { get; set; }
         public bool RouteType { get; set; }
         public TimeSpan MorningStartTime { get; set; }
         public TimeSpan EveningStartTime { get; set; }
-        public double CurrentLatitude { get; set; }
-        public double CurrentLongitude { get; set; }
+        public decimal CurrentLatitude { get; set; }
+        public decimal CurrentLongitude { get; set; }
         public string Plate { get; set; }
         public int SeatNumber { get; set; }
         public string PricePerKM { get; set; }

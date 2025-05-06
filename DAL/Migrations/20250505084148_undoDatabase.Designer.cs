@@ -4,6 +4,7 @@ using DAL.ApplicationDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250505084148_undoDatabase")]
+    partial class undoDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,11 +51,11 @@ namespace DAL.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<decimal>("Latitude")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
 
-                    b.Property<decimal>("Longitude")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("datetime2");
@@ -246,11 +249,11 @@ namespace DAL.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<decimal>("Latitude")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
 
-                    b.Property<decimal>("Longitude")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("datetime2");
@@ -263,11 +266,11 @@ namespace DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("PickupLatitude")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("PickupLatitude")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("PickupLongitude")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("PickupLongitude")
+                        .HasColumnType("float");
 
                     b.Property<int?>("RouteId")
                         .HasColumnType("int");
@@ -338,17 +341,17 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("CurrentLatitude")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("CurrentLatitude")
+                        .HasColumnType("float");
 
-                    b.Property<decimal>("CurrentLongitude")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("CurrentLongitude")
+                        .HasColumnType("float");
 
-                    b.Property<decimal>("EndLatitude")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("EndLatitude")
+                        .HasColumnType("float");
 
-                    b.Property<decimal>("EndLongitude")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("EndLongitude")
+                        .HasColumnType("float");
 
                     b.Property<TimeSpan>("EveningStartTime")
                         .HasColumnType("time");
@@ -379,11 +382,11 @@ namespace DAL.Migrations
                     b.Property<int>("SeatNumber")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("StartLatitude")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("StartLatitude")
+                        .HasColumnType("float");
 
-                    b.Property<decimal>("StartLongitude")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("StartLongitude")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -408,11 +411,11 @@ namespace DAL.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<decimal>("Latitude")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
 
-                    b.Property<decimal>("Longitude")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("datetime2");
@@ -427,7 +430,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("RouteId");
 
-                    b.ToTable("RouteWaypoints");
+                    b.ToTable("RouteWaypoint");
                 });
 
             modelBuilder.Entity("Entity.Models.CompanyDrivers", b =>

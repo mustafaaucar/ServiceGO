@@ -1,4 +1,5 @@
 ﻿using BLL.DTO;
+using BLL.Helpers;
 using BLL.Interfaces;
 using Entity.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -19,7 +20,7 @@ namespace ServiceGO.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            PassangerIndexDTO model = new PassangerIndexDTO();  
+            PassangerIndexDTO model = new PassangerIndexDTO();
             var listPermission = User.Claims.FirstOrDefault(c => c.Type == "ListPermission");
             if (listPermission != null && Convert.ToBoolean(listPermission.Value) == true)
             {
@@ -33,7 +34,7 @@ namespace ServiceGO.Controllers
             {
                 return Redirect("/Home/Login");
             }
-                
+
         }
         [Authorize]
         [HttpPost]
@@ -42,7 +43,12 @@ namespace ServiceGO.Controllers
             var addPermission = User.Claims.FirstOrDefault(c => c.Type == "AddPermission");
             if (addPermission != null && Convert.ToBoolean(addPermission.Value) == true)
             {
-               await _pasService.AddPassangersAsync(model);
+                model.Latitude = CoordinatFixHelper.FixCoordinate(model.Latitude);
+                model.Longitude = CoordinatFixHelper.FixCoordinate(model.Longitude);
+
+                model.CompanyLatitude = decimal.Parse(User.Claims.FirstOrDefault(c => c.Type == "CompanyLatitude").Value);
+                model.CompanyLongitude = decimal.Parse(User.Claims.FirstOrDefault(c => c.Type == "CompanyLongitude").Value);
+                await _pasService.AddPassangersAsync(model);
                 return RedirectToAction("Index");
             }
             else

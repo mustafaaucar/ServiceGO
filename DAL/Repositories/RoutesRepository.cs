@@ -49,5 +49,12 @@ namespace DAL.Repositories
                 return routes;
             }
         }
+
+        public async Task<Route> GetRoutePassangers(int routeID)
+        {
+            return await _context.Routes
+                .Include(r => r.Passengers)
+                .FirstOrDefaultAsync(r => r.Id == routeID);
+        }
     }
 }

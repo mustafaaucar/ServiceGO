@@ -1,4 +1,5 @@
 ﻿using BLL.DTO;
+using BLL.Helpers;
 using BLL.Interfaces;
 using DAL.ApplicationDbContext;
 using DAL.IRepositories;
@@ -84,6 +85,7 @@ namespace BLL.Services
 
         private string GenerateJwtToken(Managers manager)
         {
+            var companyDetails = _managerRepository.GetManagersCompany(manager.Id);
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(_jwtSettings.Key);
             var claims = new List<Claim>
@@ -95,7 +97,9 @@ namespace BLL.Services
                 new Claim("UpdatePermission", manager.UpdatePermission.ToString()),
                 new Claim("DeletePermission", manager.DeletePermission.ToString()),
                 new Claim("ListPermission", manager.ListPermission.ToString()),
-                new Claim("CompanyID", manager.CompanyID.ToString())
+                new Claim("CompanyID", manager.CompanyID.ToString()),
+                new Claim("CompanyLatitude", CoordinatFixHelper.FixCoordinate(companyDetails.Result.Latitude).ToString()),
+                new Claim("CompanyLongitude", CoordinatFixHelper.FixCoordinate(companyDetails.Result.Longitude).ToString()),
             };
 
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -110,7 +114,6 @@ namespace BLL.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
-
         private string HashPassword(string password)
         {
             using (var sha256 = SHA256.Create())

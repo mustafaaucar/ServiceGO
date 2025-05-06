@@ -7,8 +7,8 @@ namespace BLL.Helpers
 {
     public static class RouteOptimizationHelper
     {
-        private const double MaxWalkingDistanceMeters = 1000;
-        private const double AverageVehicleSpeedMps = 8.33;
+        private const decimal MaxWalkingDistanceMeters = 1000;
+        private const decimal AverageVehicleSpeedMps = 8.33M;
 
         /// <summary>
         /// Yolcu pickup noktalarını değerlendirir ve optimize eder.
@@ -34,22 +34,22 @@ namespace BLL.Helpers
                     };
                 }
 
-                double homeDistance = Haversine(
+                decimal homeDistance = Haversine(
                     lastWaypoint.Latitude, lastWaypoint.Longitude,
                     passenger.Latitude, passenger.Longitude);
 
-                double timeToHome = homeDistance / AverageVehicleSpeedMps;
+                decimal timeToHome = homeDistance / AverageVehicleSpeedMps;
 
-                double altLat = passenger.PickupLatitude ?? passenger.Latitude;
-                double altLon = passenger.PickupLongitude ?? passenger.Longitude;
+                decimal altLat = passenger.PickupLatitude ?? passenger.Latitude;
+                decimal altLon = passenger.PickupLongitude ?? passenger.Longitude;
 
-                double altDistance = Haversine(
+                decimal altDistance = Haversine(
                     lastWaypoint.Latitude, lastWaypoint.Longitude,
                     altLat, altLon);
 
-                double timeToAlt = altDistance / AverageVehicleSpeedMps;
+                decimal timeToAlt = altDistance / AverageVehicleSpeedMps;
 
-                double walkDistance = Haversine(
+                decimal walkDistance = Haversine(
                     passenger.Latitude, passenger.Longitude,
                     altLat, altLon);
 
@@ -74,13 +74,13 @@ namespace BLL.Helpers
             var ordered = new List<Passangers>();
             var unvisited = new List<Passangers>(route.Passengers);
 
-            double currentLat = route.StartLatitude;
-            double currentLon = route.StartLongitude;
+            decimal currentLat = route.StartLatitude;
+            decimal currentLon = route.StartLongitude;
 
             while (unvisited.Any())
             {
                 var nearest = unvisited
-                    .OrderBy<Passangers, double>(p =>
+                    .OrderBy<Passangers, decimal>(p =>
                         Haversine(
                             currentLat,
                             currentLon,
@@ -110,11 +110,11 @@ namespace BLL.Helpers
 
             foreach (var passenger in route.Passengers)
             {
-                double lat = passenger.UseAlternatePickup && passenger.PickupLatitude.HasValue
+                decimal lat = passenger.UseAlternatePickup && passenger.PickupLatitude.HasValue
                     ? passenger.PickupLatitude.Value
                     : passenger.Latitude;
 
-                double lon = passenger.UseAlternatePickup && passenger.PickupLongitude.HasValue
+                decimal lon = passenger.UseAlternatePickup && passenger.PickupLongitude.HasValue
                     ? passenger.PickupLongitude.Value
                     : passenger.Longitude;
 
@@ -134,18 +134,24 @@ namespace BLL.Helpers
         /// <summary>
         /// İki koordinat arası kuş uçuşu mesafeyi metre cinsinden hesaplar.
         /// </summary>
-        public static double Haversine(double lat1, double lon1, double lat2, double lon2)
+        public static decimal Haversine(decimal lat1, decimal lon1, decimal lat2, decimal lon2)
         {
             double R = 6371000;
-            double dLat = (lat2 - lat1) * Math.PI / 180;
-            double dLon = (lon2 - lon1) * Math.PI / 180;
+
+            double dLat = (double)(lat2 - lat1) * Math.PI / 180.0;
+            double dLon = (double)(lon2 - lon1) * Math.PI / 180.0;
+
+            double lat1Rad = (double)lat1 * Math.PI / 180.0;
+            double lat2Rad = (double)lat2 * Math.PI / 180.0;
 
             double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
-                       Math.Cos(lat1 * Math.PI / 180) * Math.Cos(lat2 * Math.PI / 180) *
+                       Math.Cos(lat1Rad) * Math.Cos(lat2Rad) *
                        Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
 
             double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-            return R * c;
+            double distance = R * c;
+
+            return (decimal)distance;
         }
     }
 }

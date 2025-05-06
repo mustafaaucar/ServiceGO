@@ -33,6 +33,7 @@ builder.Services.AddScoped<IDriversRepository, DriversRepository>();
 
 
 builder.Services.AddScoped<IManagerRepository, ManagersRepository>();
+builder.Services.AddScoped<IRouteWaypointsRepository, RouteWaypointsRepository>();
 
 
 builder.Services.AddScoped<ICompanyDriversRepository, CompanyDriversRepository>();
