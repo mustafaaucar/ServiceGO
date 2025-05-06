@@ -21,13 +21,21 @@ namespace DAL.Repositories
 
         public async Task<List<Passangers>> GetCompanyPassangers(int companyID)
         {
-            var passangerList = await (from p in _context.Passangers
-                                 join r in _context.Routes on p.RouteId equals r.Id
-                                 join cd in _context.CompanyDrivers on r.Id equals cd.RouteID
-                                 join c in _context.Companies on cd.CompanyID equals c.Id
-                                 where c.Id == companyID
-                                 select p).ToListAsync();
-            return passangerList;
+            var companyDrivers = await _context.CompanyDrivers
+                .Where(cd => cd.CompanyID == companyID && cd.IsActive)
+                .ToListAsync();
+
+            var routeIds = companyDrivers
+                .Where(cd => cd.RouteID.HasValue)
+                .Select(cd => cd.RouteID.Value)
+                .Distinct()
+                .ToList();
+
+            var passengers = await _context.Passangers
+                .Where(p => p.IsActive && p.RouteId.HasValue && routeIds.Contains(p.RouteId.Value))
+                .ToListAsync();
+
+            return passengers;
         }
     }
 }
