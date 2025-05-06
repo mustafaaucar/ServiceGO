@@ -12,5 +12,6 @@ namespace BLL.Interfaces
         Task<List<RouteDto>> GetDriverRoutes(int driverID);
         Task<List<RouteDto>> GetCompanyRoutes(int companyID);
         Task<bool> CreateRoute(CreateRouteDTO model);
+        Task<RouteDetailPageDTO> GetRouteDetails(int routeID);
     }
 }

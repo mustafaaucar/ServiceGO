@@ -50,11 +50,25 @@ namespace DAL.Repositories
             }
         }
 
+        public async Task<Route> GetRouteDetails(int routeID)
+        {
+            var selectedRoute = await _context.Routes.Where(x => x.IsActive == true && x.Id == routeID).FirstOrDefaultAsync();
+            return selectedRoute;
+        }
+
         public async Task<Route> GetRoutePassangers(int routeID)
         {
             return await _context.Routes
                 .Include(r => r.Passengers)
                 .FirstOrDefaultAsync(r => r.Id == routeID);
+        }
+
+        public async Task<List<RouteWaypoint>> GetRoutePins(int routeID)
+        {
+            var routePins = await _context.RouteWaypoints
+                .Where(x => x.RouteId == routeID) 
+                .ToListAsync();
+            return routePins;
         }
     }
 }

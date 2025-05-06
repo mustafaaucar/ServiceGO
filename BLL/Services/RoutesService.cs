@@ -16,14 +16,16 @@ namespace BLL.Services
         private readonly IMapper _mapper;
         private readonly IRoutesRepository _routesRepository;
         private readonly ICompaniesRepository _companiesRepository;
+        private readonly IPassangerRepository _passangerRepository;
         private readonly ICompanyDriversRepository _companyDriversRepository;
 
-        public RoutesService(IRoutesRepository routesRepository, IMapper mapper, ICompaniesRepository companiesRepository, ICompanyDriversRepository companyDriversRepository)
+        public RoutesService(IRoutesRepository routesRepository, IMapper mapper, ICompaniesRepository companiesRepository, ICompanyDriversRepository companyDriversRepository,IPassangerRepository passangerRepository)
         {
             _routesRepository = routesRepository;
             _companiesRepository = companiesRepository;
             _mapper = mapper;
             _companyDriversRepository = companyDriversRepository;
+            _passangerRepository = passangerRepository;
         }
 
         public async Task<List<RouteDto>> GetCompanyRoutes(int companyID)
@@ -98,6 +100,31 @@ namespace BLL.Services
                 return false;
                 throw;
             }
+        }
+
+        public async Task<RouteDetailPageDTO> GetRouteDetails(int routeID)
+        {
+            try
+            {
+                RouteDetailPageDTO routeDetailPageDTO = new RouteDetailPageDTO();
+
+                var route = await _routesRepository.GetRouteDetails(routeID);
+                var passangers = await _passangerRepository.GetRoutePassangers(routeID);
+                var pins = await _routesRepository.GetRoutePins(routeID);
+
+                routeDetailPageDTO.RouteWaypoint = _mapper.Map<List<RouteWaypointDTO>>(pins);
+                routeDetailPageDTO.PassangerList = _mapper.Map<List<PassangersDTO>>(passangers);
+                routeDetailPageDTO.Routes = _mapper.Map<RouteDto>(route);
+
+                return routeDetailPageDTO;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
     }
 }

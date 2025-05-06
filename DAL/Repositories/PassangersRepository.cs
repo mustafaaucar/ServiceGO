@@ -37,5 +37,20 @@ namespace DAL.Repositories
 
             return passengers;
         }
+
+        public async Task<List<Passangers>> GetRoutePassangers(int routeID)
+        {
+            try
+            {
+                List<Passangers> passangerList = await _context.Passangers.Where(x => x.RouteId == routeID).ToListAsync();
+                return passangerList;
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+    
+        }
     }
 }

@@ -11,6 +11,7 @@ namespace DAL.IRepositories
     public interface ICompanyDriversRepository : IBaseRepository<CompanyDrivers>
     {
         Task<List<CompanyDrivers>> GetCompanyDrivers(int driverID, int companyID);
+            
 
     }
 }

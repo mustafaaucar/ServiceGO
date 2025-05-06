@@ -13,5 +13,7 @@ namespace DAL.IRepositories
         Task<List<Route>> GetDriverRoutes(int driverID);
         Task<List<Route>> GetCompanyRoutes(int companyID);
         Task<Route> GetRoutePassangers(int routeID);
+        Task<Route> GetRouteDetails(int routeID);
+        Task<List<RouteWaypoint>> GetRoutePins(int routeID);
     }
 }

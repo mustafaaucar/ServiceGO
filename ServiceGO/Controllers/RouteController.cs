@@ -54,5 +54,16 @@ namespace ServiceGO.Controllers
             }
             return Ok();
         }
+
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> RouteDetail(int id)
+        {
+            var entity = await _routeService.GetRouteDetails(id);
+            return View(entity);
+        }
+
+
     }
 }
