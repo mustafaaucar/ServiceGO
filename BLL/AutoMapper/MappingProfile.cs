@@ -34,6 +34,10 @@ namespace BLL.AutoMapper
 			CreateMap<Passangers, PassangersDTO>();
             CreateMap<PassangersDTO, Passangers>();
 
+
+            CreateMap<RouteWaypointDTO, RouteWaypoint>();
+            CreateMap<RouteWaypoint, RouteWaypointDTO>();
+
         }
 	}
 }

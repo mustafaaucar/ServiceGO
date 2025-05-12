@@ -128,12 +128,15 @@
                                                             <div class="dropdown-menu dropdown-menu-end">
                                                                 <ul class="link-list-opt no-bdr">
                                                                     <li>
-                                                                        <form asp-controller="Route" asp-action="RouteDetail" method="post" style="display:inline;" id="form-@item.Id">
-                                                                            <input type="hidden" name="driverId" value="@item.Id" />
-                                                                            <a role="button" onclick="document.getElementById('form-@item.Id').submit(); return false;">
-                                                                                <em class="icon ni ni-eye"></em>
-                                                                                <span>Detay Görüntüle</span>
+                                                                        <form asp-controller="Route" asp-action="RouteDetail" method="post">
+                                                                            <input type="hidden" name="id" value="@item.Id" />
+                                                                            <a>
+                                                                                <button type="submit" style="background:none; border:none;">
+                                                                                    <em class="icon ni ni-eye"></em>
+                                                                                    <span>Detay Görüntüle</span>
+                                                                                </button>
                                                                             </a>
+                                                                            
                                                                         </form>
                                                                     </li>
                                                                     <li>
